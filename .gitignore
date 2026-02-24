@@ -1,0 +1,13 @@
+# Portfolio website repository
+
+# System and temporary files
+*.py
+*.txt
+*.webp
+*.png
+.gemini/
+brain/
+logs/
+!index.html
+!portfolio.html
+!resume.pdf
