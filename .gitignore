@@ -3,11 +3,13 @@
 # System and temporary files
 *.py
 *.txt
-*.webp
-*.png
 .gemini/
 brain/
 logs/
+index_slim.html
+# Keep the images folder tracked
+!images/
+!images/*
 !index.html
 !portfolio.html
 !resume.pdf
