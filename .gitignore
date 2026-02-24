@@ -7,9 +7,11 @@
 brain/
 logs/
 index_slim.html
-# Keep the images folder tracked
+*.bak
+# Keep these folders tracked
 !images/
 !images/*
+!assets/
+!assets/**
 !index.html
 !portfolio.html
-!resume.pdf
