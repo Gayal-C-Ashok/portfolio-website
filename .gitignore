@@ -1,17 +1,24 @@
-# Portfolio website repository
-
-# System and temporary files
+# ── System & temp files ──
 *.py
-*.txt
+*.bak
+*.log
 .gemini/
 brain/
 logs/
+
+# ── Debug & scratch outputs ──
+*.txt
+debug_info.json
+
+# ── Slim / backup copies ──
 index_slim.html
-*.bak
-# Keep these folders tracked
-!images/
-!images/*
+portfolio.html
+
+# ── Ensure important files ARE tracked ──
+!README.md
 !assets/
 !assets/**
+!images/
+!images/*
 !index.html
-!portfolio.html
+!.gitignore
