@@ -1338,7 +1338,7 @@
     /* ── NEW PROFILE SECTION ── */
     .profile-grid-new {
       display: grid;
-      grid-template-columns: 260px 1fr;
+      grid-template-columns: 230px 1fr;
       gap: 2.5rem;
       align-items: start
     }
@@ -1440,9 +1440,9 @@
       --rotate-y: 0deg;
       --background-x: 50%;
       --background-y: 50%;
-      --behind-glow-color: rgba(0, 229, 200, 0.5);
-      --behind-glow-size: 50%;
-      --inner-gradient: linear-gradient(145deg, rgba(0,30,30,.6) 0%, rgba(0,229,200,.15) 100%);
+      --behind-glow-color: rgba(0, 229, 200, 0.4);
+      --behind-glow-size: 45%;
+      --inner-gradient: linear-gradient(145deg, rgba(0,30,30,.6) 0%, rgba(0,229,200,.1) 100%);
       --card-radius: 24px;
       --sunpillar-1: hsl(170,100%,73%);
       --sunpillar-2: hsl(190,100%,69%);
@@ -1479,12 +1479,12 @@
 
     .pc-card {
       display: grid;
-      aspect-ratio: 0.718;
+      aspect-ratio: 0.75;
       border-radius: var(--card-radius);
       position: relative;
       animation: pc-glow-bg 12s linear infinite;
-      box-shadow: rgba(0,0,0,.8) calc((var(--pointer-from-left)*10px) - 3px)
-        calc((var(--pointer-from-top)*20px) - 6px) 20px -5px;
+      box-shadow: rgba(0,0,0,.8) calc((var(--pointer-from-left)*8px) - 2px)
+        calc((var(--pointer-from-top)*14px) - 4px) 20px -5px;
       transition: transform 1s ease;
       transform: translateZ(0) rotateX(0deg) rotateY(0deg);
       background: rgba(0,0,0,.9);
@@ -1530,7 +1530,7 @@
       z-index: 3;
       mix-blend-mode: color-dodge;
       transition: filter .8s ease;
-      filter: brightness(.66) contrast(1.33) saturate(.33) opacity(.5);
+      filter: brightness(.45) contrast(1.2) saturate(.25) opacity(.35);
       animation: pc-holo-bg 18s linear infinite;
       background: transparent;
       background-size: 500% 500%, 300% 300%, 200% 200%;
@@ -1567,7 +1567,7 @@
 
     .pc-card:hover .pc-shine,
     .pc-card.active .pc-shine {
-      filter: brightness(.85) contrast(1.5) saturate(.5);
+      filter: brightness(.55) contrast(1.3) saturate(.4);
       animation-play-state: paused
     }
 
@@ -1580,7 +1580,7 @@
         hsla(207,40%,30%,.8) 90%
       );
       mix-blend-mode: overlay;
-      filter: brightness(.8) contrast(1.2);
+      filter: brightness(.7) contrast(1.1);
       z-index: 4
     }
 
@@ -1600,9 +1600,9 @@
       object-fit: cover;
       object-position: center top;
       transform-origin: 50% 50%;
-      transform: translateX(calc((var(--pointer-from-left) - 0.5)*6px))
-        scaleY(calc(1 + (var(--pointer-from-top) - 0.5)*0.02))
-        scaleX(calc(1 + (var(--pointer-from-left) - 0.5)*0.01));
+      transform: translateX(calc((var(--pointer-from-left) - 0.5)*4px))
+        scaleY(calc(1 + (var(--pointer-from-top) - 0.5)*0.015))
+        scaleX(calc(1 + (var(--pointer-from-left) - 0.5)*0.008));
       backface-visibility: hidden;
       will-change: transform;
       transition: transform 120ms ease-out
@@ -4129,7 +4129,7 @@
       if (!wrap || !shell) return;
 
       var ENTER_MS = 180;
-      var DEFAULT_TAU = 0.14;
+      var DEFAULT_TAU = 0.18;
       var INITIAL_TAU = 0.6;
       var INITIAL_DURATION = 1200;
       var INITIAL_X_OFF = 70;
@@ -4162,8 +4162,8 @@
           '--pointer-from-center': clamp(Math.hypot(py - 50, px - 50) / 50, 0, 1),
           '--pointer-from-top': py / 100,
           '--pointer-from-left': px / 100,
-          '--rotate-x': round3(-(cx / 5)) + 'deg',
-          '--rotate-y': round3(cy / 4) + 'deg'
+          '--rotate-x': round3(-(cx / 8)) + 'deg',
+          '--rotate-y': round3(cy / 7) + 'deg'
         };
         for (var k in props) wrap.style.setProperty(k, '' + props[k]);
       }
