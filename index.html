@@ -856,13 +856,13 @@
       transition: .3s
     }
 
-    .proj-card:hover {
+    .electric-border:hover .proj-card {
       transform: translateY(-6px);
       border-color: rgba(0, 229, 200, .3);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .6)
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .6), 0 0 30px rgba(125, 249, 255, .12)
     }
 
-    .proj-card:hover::after {
+    .electric-border:hover .proj-card::after {
       opacity: 1
     }
 
@@ -934,6 +934,88 @@
     .proj-link:hover {
       background: rgba(0, 229, 200, .1);
       transform: translateY(-1px)
+    }
+
+    /* ── ELECTRIC BORDER ── */
+    .electric-border {
+      --electric-border-color: #7df9ff;
+      position: relative;
+      border-radius: 16px;
+      overflow: visible;
+      isolation: isolate;
+      transition: transform .3s ease, filter .3s ease
+    }
+
+    .electric-border:hover {
+      transform: translateY(-4px);
+      filter: drop-shadow(0 8px 24px rgba(125, 249, 255, .15))
+    }
+
+    .eb-canvas-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity .35s ease
+    }
+
+    .electric-border:hover .eb-canvas-container {
+      opacity: 1
+    }
+
+    .eb-canvas {
+      display: block
+    }
+
+    .eb-content {
+      position: relative;
+      border-radius: inherit;
+      z-index: 1
+    }
+
+    .eb-layers {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity .35s ease
+    }
+
+    .electric-border:hover .eb-layers {
+      opacity: 1
+    }
+
+    .eb-glow-1,
+    .eb-glow-2,
+    .eb-background-glow {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-sizing: border-box
+    }
+
+    .eb-glow-1 {
+      border: 2px solid rgba(125, 249, 255, .45);
+      filter: blur(1px)
+    }
+
+    .eb-glow-2 {
+      border: 2px solid rgba(125, 249, 255, .6);
+      filter: blur(4px)
+    }
+
+    .eb-background-glow {
+      z-index: -1;
+      transform: scale(1.1);
+      filter: blur(32px);
+      opacity: .3;
+      background: linear-gradient(-30deg, #7df9ff, transparent, #7df9ff)
     }
 
     /* ── CERTIFICATIONS ── */
@@ -2096,66 +2178,90 @@
     <h2 class="heading reveal">Featured <em>Projects</em></h2>
     <div class="projects-grid">
 
-      <div class="proj-card reveal">
-        <div class="proj-cover"><img src="images/image_png_0004.png" alt="Credit Risk" class="proj-cover-img" /></div>
-        <div class="proj-title">Gen AI-Powered Credit Risk Prediction System</div>
-        <div class="proj-tags">
-          <span class="proj-tag">Python</span><span class="proj-tag">Scikit-learn</span><span class="proj-tag">OpenAI
-            API</span><span class="proj-tag">Streamlit</span><span class="proj-tag">Explainable AI</span>
-        </div>
-        <div class="proj-desc">End-to-end credit risk prediction system integrated with Generative AI for explainable AI
-          outputs. Real-time Streamlit dashboard enabling actionable insights for financial decision-making.</div>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/Gayal-C-Ashok/ML-GenAI-Credit-Risk-System"
-            target="_blank">&#9711; GitHub</a>
-          <a class="proj-link" href="#" target="_blank">&#8599; Live Demo</a>
-        </div>
-      </div>
-
-      <div class="proj-card reveal" style="animation-delay:.1s">
-        <div class="proj-cover"><img src="images/image_png_0005.png" alt="Vials Counting" class="proj-cover-img" />
-        </div>
-        <div class="proj-title">Automated Syringes &amp; Vials Counting System</div>
-        <div class="proj-tags">
-          <span class="proj-tag">Python</span><span class="proj-tag">YOLOv8</span><span
-            class="proj-tag">TensorFlow</span><span class="proj-tag">Streamlit</span><span class="proj-tag">Computer
-            Vision</span>
-        </div>
-        <div class="proj-desc">Computer vision system for automated high-accuracy counting of syringes and vials on
-          production lines. Deployed via scalable Streamlit interface saving massive operational costs.</div>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/Gayal-C-Ashok/Syringes-And-Vials-Counting-System"
-            target="_blank">&#9711; GitHub</a>
-          <a class="proj-link" href="#" target="_blank">&#8599; Live Demo</a>
+      <div class="electric-border reveal">
+        <div class="eb-canvas-container"><canvas class="eb-canvas"></canvas></div>
+        <div class="eb-layers"><div class="eb-glow-1"></div><div class="eb-glow-2"></div><div class="eb-background-glow"></div></div>
+        <div class="eb-content">
+          <div class="proj-card">
+            <div class="proj-cover"><img src="images/image_png_0004.png" alt="Credit Risk" class="proj-cover-img" /></div>
+            <div class="proj-title">Gen AI-Powered Credit Risk Prediction System</div>
+            <div class="proj-tags">
+              <span class="proj-tag">Python</span><span class="proj-tag">Scikit-learn</span><span class="proj-tag">OpenAI
+                API</span><span class="proj-tag">Streamlit</span><span class="proj-tag">Explainable AI</span>
+            </div>
+            <div class="proj-desc">End-to-end credit risk prediction system integrated with Generative AI for explainable AI
+              outputs. Real-time Streamlit dashboard enabling actionable insights for financial decision-making.</div>
+            <div class="proj-links">
+              <a class="proj-link" href="https://github.com/Gayal-C-Ashok/ML-GenAI-Credit-Risk-System"
+                target="_blank">&#9711; GitHub</a>
+              <a class="proj-link" href="#" target="_blank">&#8599; Live Demo</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="proj-card reveal" style="animation-delay:.2s">
-        <div class="proj-cover"><img src="images/image_png_0006.png" alt="Solar Power" class="proj-cover-img" /></div>
-        <div class="proj-title">Solar Power Generation Prediction Model</div>
-        <div class="proj-tags">
-          <span class="proj-tag">Python</span><span class="proj-tag">SVM</span><span
-            class="proj-tag">Scikit-learn</span><span class="proj-tag">Streamlit</span><span
-            class="proj-tag">GridSearchCV</span>
-        </div>
-        <div class="proj-desc">Predictive maintenance model using SVM with GridSearchCV hyperparameter optimization for
-          solar power systems. Enables proactive fault detection to maximize energy output.</div>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/Gayal-C-Ashok/Solar-Power-Generation-Prediction-Model"
-            target="_blank">&#9711; GitHub</a>
-          <a class="proj-link" href="#" target="_blank">&#8599; Live Demo</a>
+      <div class="electric-border reveal" style="animation-delay:.1s">
+        <div class="eb-canvas-container"><canvas class="eb-canvas"></canvas></div>
+        <div class="eb-layers"><div class="eb-glow-1"></div><div class="eb-glow-2"></div><div class="eb-background-glow"></div></div>
+        <div class="eb-content">
+          <div class="proj-card">
+            <div class="proj-cover"><img src="images/image_png_0005.png" alt="Vials Counting" class="proj-cover-img" />
+            </div>
+            <div class="proj-title">Automated Syringes &amp; Vials Counting System</div>
+            <div class="proj-tags">
+              <span class="proj-tag">Python</span><span class="proj-tag">YOLOv8</span><span
+                class="proj-tag">TensorFlow</span><span class="proj-tag">Streamlit</span><span class="proj-tag">Computer
+                Vision</span>
+            </div>
+            <div class="proj-desc">Computer vision system for automated high-accuracy counting of syringes and vials on
+              production lines. Deployed via scalable Streamlit interface saving massive operational costs.</div>
+            <div class="proj-links">
+              <a class="proj-link" href="https://github.com/Gayal-C-Ashok/Syringes-And-Vials-Counting-System"
+                target="_blank">&#9711; GitHub</a>
+              <a class="proj-link" href="#" target="_blank">&#8599; Live Demo</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="proj-card reveal" style="animation-delay:.3s">
-        <div class="proj-cover"><img src="images/image_png_0007.png" alt="Health App" class="proj-cover-img" /></div>
-        <div class="proj-title">My Health Mobile App</div>
-        <div class="proj-tags">
-          <span class="proj-tag">PHP</span><span class="proj-tag">MySQL</span><span class="proj-tag">Android
-            Studio</span><span class="proj-tag">AngularJS</span>
+      <div class="electric-border reveal" style="animation-delay:.2s">
+        <div class="eb-canvas-container"><canvas class="eb-canvas"></canvas></div>
+        <div class="eb-layers"><div class="eb-glow-1"></div><div class="eb-glow-2"></div><div class="eb-background-glow"></div></div>
+        <div class="eb-content">
+          <div class="proj-card">
+            <div class="proj-cover"><img src="images/image_png_0006.png" alt="Solar Power" class="proj-cover-img" /></div>
+            <div class="proj-title">Solar Power Generation Prediction Model</div>
+            <div class="proj-tags">
+              <span class="proj-tag">Python</span><span class="proj-tag">SVM</span><span
+                class="proj-tag">Scikit-learn</span><span class="proj-tag">Streamlit</span><span
+                class="proj-tag">GridSearchCV</span>
+            </div>
+            <div class="proj-desc">Predictive maintenance model using SVM with GridSearchCV hyperparameter optimization for
+              solar power systems. Enables proactive fault detection to maximize energy output.</div>
+            <div class="proj-links">
+              <a class="proj-link" href="https://github.com/Gayal-C-Ashok/Solar-Power-Generation-Prediction-Model"
+                target="_blank">&#9711; GitHub</a>
+              <a class="proj-link" href="#" target="_blank">&#8599; Live Demo</a>
+            </div>
+          </div>
         </div>
-        <div class="proj-desc">Full-stack health monitoring application with secure user authentication and personalized
-          goal-tracking. Android mobile interface with appointment reminders and drug information functionality.</div>
+      </div>
+
+      <div class="electric-border reveal" style="animation-delay:.3s">
+        <div class="eb-canvas-container"><canvas class="eb-canvas"></canvas></div>
+        <div class="eb-layers"><div class="eb-glow-1"></div><div class="eb-glow-2"></div><div class="eb-background-glow"></div></div>
+        <div class="eb-content">
+          <div class="proj-card">
+            <div class="proj-cover"><img src="images/image_png_0007.png" alt="Health App" class="proj-cover-img" /></div>
+            <div class="proj-title">My Health Mobile App</div>
+            <div class="proj-tags">
+              <span class="proj-tag">PHP</span><span class="proj-tag">MySQL</span><span class="proj-tag">Android
+                Studio</span><span class="proj-tag">AngularJS</span>
+            </div>
+            <div class="proj-desc">Full-stack health monitoring application with secure user authentication and personalized
+              goal-tracking. Android mobile interface with appointment reminders and drug information functionality.</div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -3672,6 +3778,159 @@
       form.querySelectorAll('input, textarea').forEach(function (el) {
         el.addEventListener('input', function () { el.classList.remove('invalid'); });
       });
+    })();
+  </script>
+  <!-- ═══ ELECTRIC BORDER ANIMATION ═══ -->
+  <script>
+    (function () {
+      var COLOR = '#7df9ff';
+      var SPEED = 1;
+      var CHAOS = 0.12;
+      var BORDER_RADIUS = 16;
+      var BORDER_OFFSET = 60;
+      var DISPLACEMENT = 60;
+      var OCTAVES = 10;
+      var LACUNARITY = 1.6;
+      var GAIN = 0.7;
+      var FREQUENCY = 10;
+      var BASE_FLATNESS = 0;
+
+      function random(x) {
+        return (Math.sin(x * 12.9898) * 43758.5453) % 1;
+      }
+
+      function noise2D(x, y) {
+        var i = Math.floor(x);
+        var j = Math.floor(y);
+        var fx = x - i;
+        var fy = y - j;
+        var a = random(i + j * 57);
+        var b = random(i + 1 + j * 57);
+        var c = random(i + (j + 1) * 57);
+        var d = random(i + 1 + (j + 1) * 57);
+        var ux = fx * fx * (3 - 2 * fx);
+        var uy = fy * fy * (3 - 2 * fy);
+        return a * (1 - ux) * (1 - uy) + b * ux * (1 - uy) + c * (1 - ux) * uy + d * ux * uy;
+      }
+
+      function octavedNoise(x, time, seed) {
+        var y = 0, amplitude = CHAOS, frequency = FREQUENCY;
+        for (var i = 0; i < OCTAVES; i++) {
+          var oa = i === 0 ? amplitude * BASE_FLATNESS : amplitude;
+          y += oa * noise2D(frequency * x + seed * 100, time * frequency * 0.3);
+          frequency *= LACUNARITY;
+          amplitude *= GAIN;
+        }
+        return y;
+      }
+
+      function getCornerPoint(cx, cy, r, startAngle, arcLen, progress) {
+        var angle = startAngle + progress * arcLen;
+        return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+      }
+
+      function getRoundedRectPoint(t, left, top, w, h, r) {
+        var sw = w - 2 * r, sh = h - 2 * r;
+        var ca = Math.PI * r / 2;
+        var total = 2 * sw + 2 * sh + 4 * ca;
+        var d = t * total, acc = 0;
+        if (d <= acc + sw) return { x: left + r + (d - acc) / sw * sw, y: top };
+        acc += sw;
+        if (d <= acc + ca) return getCornerPoint(left + w - r, top + r, r, -Math.PI / 2, Math.PI / 2, (d - acc) / ca);
+        acc += ca;
+        if (d <= acc + sh) return { x: left + w, y: top + r + (d - acc) / sh * sh };
+        acc += sh;
+        if (d <= acc + ca) return getCornerPoint(left + w - r, top + h - r, r, 0, Math.PI / 2, (d - acc) / ca);
+        acc += ca;
+        if (d <= acc + sw) return { x: left + w - r - (d - acc) / sw * sw, y: top + h };
+        acc += sw;
+        if (d <= acc + ca) return getCornerPoint(left + r, top + h - r, r, Math.PI / 2, Math.PI / 2, (d - acc) / ca);
+        acc += ca;
+        if (d <= acc + sh) return { x: left, y: top + h - r - (d - acc) / sh * sh };
+        acc += sh;
+        return getCornerPoint(left + r, top + r, r, Math.PI, Math.PI / 2, (d - acc) / ca);
+      }
+
+      function initElectricBorder(container) {
+        var canvas = container.querySelector('.eb-canvas');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        var animId = null;
+        var time = 0;
+        var lastFrame = 0;
+        var width = 0, height = 0;
+
+        function updateSize() {
+          var rect = container.getBoundingClientRect();
+          width = rect.width + BORDER_OFFSET * 2;
+          height = rect.height + BORDER_OFFSET * 2;
+          var dpr = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = width * dpr;
+          canvas.height = height * dpr;
+          canvas.style.width = width + 'px';
+          canvas.style.height = height + 'px';
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.scale(dpr, dpr);
+        }
+
+        function draw(now) {
+          if (!ctx) return;
+          var dt = (now - lastFrame) / 1000;
+          time += dt * SPEED;
+          lastFrame = now;
+
+          var dpr = Math.min(window.devicePixelRatio || 1, 2);
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.scale(dpr, dpr);
+          ctx.strokeStyle = COLOR;
+          ctx.lineWidth = 1;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+
+          var bw = width - 2 * BORDER_OFFSET;
+          var bh = height - 2 * BORDER_OFFSET;
+          var maxR = Math.min(bw, bh) / 2;
+          var r = Math.min(BORDER_RADIUS, maxR);
+          var perim = 2 * (bw + bh) + 2 * Math.PI * r;
+          var samples = Math.floor(perim / 2);
+
+          ctx.beginPath();
+          for (var i = 0; i <= samples; i++) {
+            var prog = i / samples;
+            var pt = getRoundedRectPoint(prog, BORDER_OFFSET, BORDER_OFFSET, bw, bh, r);
+            var xn = octavedNoise(prog * 8, time, 0);
+            var yn = octavedNoise(prog * 8, time, 1);
+            var dx = pt.x + xn * DISPLACEMENT;
+            var dy = pt.y + yn * DISPLACEMENT;
+            if (i === 0) ctx.moveTo(dx, dy); else ctx.lineTo(dx, dy);
+          }
+          ctx.closePath();
+          ctx.stroke();
+
+          animId = requestAnimationFrame(draw);
+        }
+
+        var resizeObs = new ResizeObserver(function () { updateSize(); });
+        resizeObs.observe(container);
+
+        container.addEventListener('mouseenter', function () {
+          if (animId) return;
+          updateSize();
+          lastFrame = performance.now();
+          animId = requestAnimationFrame(draw);
+        });
+
+        container.addEventListener('mouseleave', function () {
+          if (animId) { cancelAnimationFrame(animId); animId = null; }
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+      }
+
+      document.querySelectorAll('.electric-border').forEach(initElectricBorder);
     })();
   </script>
 </body>
