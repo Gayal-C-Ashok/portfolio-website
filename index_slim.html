@@ -1,0 +1,3370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gayal C Ashok — AI/ML Data Scientist</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    :root {
+      --teal: #00e5c8;
+      --blue: #4488ff;
+      --purple: #a855f7;
+      --text: #e8edf5;
+      --muted: #7a8fa6;
+      --dark: #000008;
+      --glass: rgba(3, 6, 18, 0.60);
+      --border: rgba(0, 229, 200, 0.13);
+      --fh: 'Syne', sans-serif;
+      --fb: 'DM Sans', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: var(--fb);
+      font-weight: 300;
+      line-height: 1.75;
+      overflow-x: hidden
+    }
+
+    /* ── CANVASES ── */
+    #space-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none
+    }
+
+    #fluid-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      width: 100vw;
+      height: 100vh;
+      mix-blend-mode: screen
+    }
+
+    /* ── LAYOUT ── */
+    nav,
+    section,
+    footer,
+    hr.divider {
+      position: relative;
+      z-index: 10
+    }
+
+    section {
+      padding: 7rem 5%
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 10
+    }
+
+    /* ── SHARED TEXT ── */
+    .label {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: .5rem
+    }
+
+    .heading {
+      font-family: var(--fh);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 2.5rem;
+      line-height: 1.1
+    }
+
+    .heading em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .85rem 5%;
+      background: rgba(0, 0, 8, .6);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .logo {
+      font-family: var(--fh);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--teal);
+      text-decoration: none;
+      letter-spacing: -.5px
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .nav-links a {
+      font-size: .72rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      padding: .4rem .8rem;
+      border-radius: 6px;
+      transition: all .2s;
+      white-space: nowrap
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--teal);
+      background: rgba(0, 229, 200, .08)
+    }
+
+    .nav-links .nav-cta {
+      background: linear-gradient(135deg, var(--teal), var(--blue)) !important;
+      color: #000 !important;
+      font-weight: 700 !important;
+      margin-left: .4rem;
+      box-shadow: 0 2px 14px rgba(0, 229, 200, .25);
+      border-radius: 8px
+    }
+
+    .nav-links .nav-cta:hover {
+      transform: translateY(-1px) !important;
+      box-shadow: 0 6px 24px rgba(0, 229, 200, .4) !important
+    }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5rem
+    }
+
+    .hero-inner {
+      max-width: 900px
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .7rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid rgba(0, 229, 200, .3);
+      padding: .35rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      background: rgba(0, 229, 200, .05);
+      font-weight: 500;
+      animation: fadeUp .8s ease both
+    }
+
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: pulse 1.5s ease-in-out infinite;
+      flex-shrink: 0
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1
+      }
+
+      50% {
+        transform: scale(1.8);
+        opacity: .3
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .hero-title {
+      font-family: var(--fh);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -4px;
+      margin-bottom: 1.4rem;
+      animation: fadeUp .9s .1s ease both
+    }
+
+    .hero-title .g1 {
+      background: linear-gradient(110deg, #fff, #b0c8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .hero-title .g2 {
+      background: linear-gradient(110deg, var(--teal), var(--blue), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .typed-row {
+      font-family: var(--fh);
+      font-size: clamp(1.3rem, 3vw, 2.1rem);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 1.4rem;
+      min-height: 2.6rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      animation: fadeUp .9s .2s ease both
+    }
+
+    .typed-pre {
+      color: var(--muted)
+    }
+
+    .typed-word {
+      color: var(--teal)
+    }
+
+    .typed-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1.1em;
+      background: var(--teal);
+      animation: blink .7s step-end infinite;
+      vertical-align: middle;
+      border-radius: 2px;
+      margin-left: 2px
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0
+      }
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      line-height: 1.9;
+      animation: fadeUp .9s .3s ease both
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp .9s .4s ease both
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .82rem 1.9rem;
+      border-radius: 10px;
+      font-family: var(--fb);
+      font-size: .88rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .25s;
+      border: none;
+      white-space: nowrap
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      color: #000;
+      font-weight: 700
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 229, 200, .4)
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255, 255, 255, .04)
+    }
+
+    .btn-outline:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+      transform: translateY(-2px)
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+      flex-wrap: wrap;
+      animation: fadeUp .9s .52s ease both
+    }
+
+    .stat-num {
+      font-family: var(--fh);
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1
+    }
+
+    .stat-lbl {
+      font-size: .7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin-top: .2rem
+    }
+
+    /* ── PROFILE ── */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 2.5rem;
+      align-items: start
+    }
+
+    .profile-card {
+      background: var(--glass);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.8rem;
+      text-align: center;
+      position: sticky;
+      top: 85px
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      background: linear-gradient(135deg, rgba(0, 229, 200, .1), rgba(68, 136, 255, .1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.2rem;
+      position: relative
+    }
+
+    .avatar::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: conic-gradient(var(--teal), var(--blue), var(--purple), var(--teal));
+      z-index: -1;
+      opacity: .4;
+      animation: spin 8s linear infinite
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .pname {
+      font-family: var(--fh);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: .2rem
+    }
+
+    .prole {
+      font-size: .76rem;
+      color: var(--teal);
+      margin-bottom: .15rem
+    }
+
+    .ploc {
+      font-size: .76rem;
+      color: var(--muted);
+      margin-bottom: 1rem
+    }
+
+    .pstats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .4rem;
+      padding: .8rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: .8rem 0
+    }
+
+    .pstat-n {
+      font-family: var(--fh);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--teal)
+    }
+
+    .pstat-l {
+      font-size: .58rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .77rem;
+      margin-bottom: .4rem;
+      gap: .5rem
+    }
+
+    .info-row .lbl {
+      color: var(--muted);
+      flex-shrink: 0
+    }
+
+    .info-row .val {
+      font-weight: 500;
+      text-align: right;
+      word-break: break-all
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-top: 1rem
+    }
+
+    .soc-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all .2s;
+      flex-shrink: 0
+    }
+
+    .soc-btn:hover {
+      border-color: var(--teal);
+      background: rgba(0, 229, 200, .08);
+      transform: translateY(-2px)
+    }
+
+    .soc-btn svg {
+      width: 17px;
+      height: 17px;
+      display: block
+    }
+
+    .profile-body {
+      background: var(--glass);
+      backdrop-filter: blur(22px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.2rem
+    }
+
+    .profile-body p {
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      line-height: 1.85;
+      font-size: .95rem
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .7rem;
+      margin-top: 1.5rem
+    }
+
+    .info-item {
+      padding: .75rem 1rem;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--border);
+      border-radius: 10px
+    }
+
+    .info-item-l {
+      font-size: .63rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted)
+    }
+
+    .info-item-v {
+      font-size: .86rem;
+      font-weight: 500;
+      margin-top: .12rem
+    }
+
+    /* ── SKILLS ── */
+    .marquee-wrap {
+      overflow: hidden;
+      position: relative;
+      margin-bottom: .9rem
+    }
+
+    .marquee-wrap::before,
+    .marquee-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none
+    }
+
+    .marquee-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, var(--dark), transparent)
+    }
+
+    .marquee-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, var(--dark), transparent)
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: .8rem;
+      width: max-content
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused
+    }
+
+    .go-ltr {
+      animation: goLtr 22s linear infinite
+    }
+
+    .go-rtl {
+      animation: goRtl 22s linear infinite
+    }
+
+    .go-ltr2 {
+      animation: goLtr 22s linear infinite
+    }
+
+    @keyframes goLtr {
+      from {
+        transform: translateX(-50%)
+      }
+
+      to {
+        transform: translateX(0)
+      }
+    }
+
+    @keyframes goRtl {
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    .skill-chip {
+      background: rgba(3, 6, 18, .65);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .7rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all .22s;
+      cursor: default
+    }
+
+    .skill-chip:hover {
+      border-color: var(--teal);
+      box-shadow: 0 0 18px rgba(0, 229, 200, .18);
+      transform: translateY(-2px)
+    }
+
+    .skill-chip svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      overflow: visible
+    }
+
+    .skill-chip span {
+      font-size: .8rem;
+      font-weight: 500
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      position: relative;
+      padding-left: 2.2rem
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 4px;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--teal), var(--blue) 60%, transparent)
+    }
+
+    .edu-cover {
+      width: 90px;
+      height: 90px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0
+    }
+
+    .edu-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top
+    }
+
+    .tl-item-inner {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start
+    }
+
+    .tl-item-body {
+      flex: 1;
+      min-width: 0
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 1.4rem;
+      padding: 1.5rem 1.7rem;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      transition: all .3s
+    }
+
+    .tl-item:hover {
+      border-color: rgba(0, 229, 200, .35);
+      transform: translateX(6px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, .5)
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -2.6rem;
+      top: 1.5rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 3px rgba(0, 229, 200, .18), 0 0 14px rgba(0, 229, 200, .7)
+    }
+
+    .tl-date {
+      font-size: .66rem;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      color: var(--teal);
+      font-weight: 600;
+      margin-bottom: .3rem
+    }
+
+    .tl-title {
+      font-family: var(--fh);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .2rem
+    }
+
+    .tl-org {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-bottom: .5rem
+    }
+
+    .tl-desc {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.75
+    }
+
+    .tl-desc p {
+      margin-bottom: .4rem
+    }
+
+    .tl-tag {
+      display: inline-block;
+      padding: .15rem .6rem;
+      background: rgba(0, 229, 200, .08);
+      border: 1px solid rgba(0, 229, 200, .2);
+      border-radius: 100px;
+      font-size: .64rem;
+      color: var(--teal);
+      font-weight: 600;
+      margin-right: .35rem;
+      margin-bottom: .35rem
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.3rem
+    }
+
+    .proj-cover {
+      width: calc(100% + 3.6rem);
+      margin: -1.8rem -1.8rem 1.2rem -1.8rem;
+      height: 180px;
+      overflow: hidden;
+      border-radius: 16px 16px 0 0
+    }
+
+    .proj-cover-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .4s ease
+    }
+
+    .proj-card:hover .proj-cover-img {
+      transform: scale(1.05)
+    }
+
+    .proj-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      transition: all .3s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column
+    }
+
+    .proj-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--teal), var(--blue), var(--purple));
+      opacity: 0;
+      transition: .3s
+    }
+
+    .proj-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0, 229, 200, .3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .6)
+    }
+
+    .proj-card:hover::after {
+      opacity: 1
+    }
+
+    .proj-icon {
+      font-size: 1.9rem;
+      margin-bottom: .8rem
+    }
+
+    .proj-title {
+      font-family: var(--fh);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .5rem
+    }
+
+    .proj-desc {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: .8rem;
+      line-height: 1.7;
+      flex: 1
+    }
+
+    .proj-metric {
+      font-size: .77rem;
+      color: var(--teal);
+      font-weight: 500;
+      margin-bottom: .8rem;
+      line-height: 1.65;
+      padding: .6rem .8rem;
+      background: rgba(0, 229, 200, .06);
+      border-radius: 8px;
+      border-left: 2px solid var(--teal)
+    }
+
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .3rem;
+      margin-bottom: 1rem
+    }
+
+    .proj-tag {
+      padding: .14rem .52rem;
+      background: rgba(68, 136, 255, .1);
+      border: 1px solid rgba(68, 136, 255, .22);
+      border-radius: 100px;
+      font-size: .64rem;
+      color: #88bbff
+    }
+
+    .proj-links {
+      display: flex;
+      gap: .8rem;
+      margin-top: auto
+    }
+
+    .proj-link {
+      font-size: .76rem;
+      font-weight: 500;
+      color: var(--teal);
+      text-decoration: none;
+      border: 1px solid rgba(0, 229, 200, .25);
+      padding: .3rem .8rem;
+      border-radius: 6px;
+      transition: all .2s
+    }
+
+    .proj-link:hover {
+      background: rgba(0, 229, 200, .1);
+      transform: translateY(-1px)
+    }
+
+    /* ── CERTIFICATIONS ── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1rem
+    }
+
+    .cert-card {
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem;
+      transition: all .3s;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem
+    }
+
+    .cert-card:hover {
+      border-color: rgba(0, 229, 200, .35);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .5)
+    }
+
+    .cert-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      line-height: 1
+    }
+
+    .cert-name {
+      font-size: .88rem;
+      font-weight: 500;
+      margin-bottom: .25rem;
+      line-height: 1.4
+    }
+
+    .cert-org {
+      font-size: .75rem;
+      color: var(--muted)
+    }
+
+    .cert-year {
+      font-size: .68rem;
+      color: var(--teal);
+      font-weight: 600;
+      margin-top: .2rem
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 2.2rem;
+      align-items: start
+    }
+
+    .contact-left h3 {
+      font-family: var(--fh);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: .8rem;
+      line-height: 1.3
+    }
+
+    .contact-left p {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.85;
+      font-size: .95rem
+    }
+
+    .social-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .6rem;
+      margin-bottom: 1.5rem
+    }
+
+    .soc-link {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .75rem 1rem;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: inherit;
+      transition: all .22s
+    }
+
+    .soc-link:hover {
+      border-color: var(--teal);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, .4)
+    }
+
+    .soc-link-ico {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .soc-link-ico svg {
+      width: 18px;
+      height: 18px;
+      display: block
+    }
+
+    .soc-link-label {
+      font-size: .67rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      line-height: 1
+    }
+
+    .soc-link-val {
+      font-size: .8rem;
+      font-weight: 500;
+      margin-top: .15rem
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+      background: var(--glass);
+      backdrop-filter: blur(22px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2rem
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .85rem
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem
+    }
+
+    .form-group label {
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted)
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .72rem .9rem;
+      color: var(--text);
+      font-family: var(--fb);
+      font-size: .86rem;
+      outline: none;
+      transition: border-color .22s;
+      width: 100%
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(0, 229, 200, .07)
+    }
+
+    .form-group textarea {
+      min-height: 110px;
+      resize: vertical
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem 5%;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .79rem;
+      background: rgba(0, 0, 8, .75);
+      backdrop-filter: blur(14px)
+    }
+
+    footer a {
+      color: var(--teal);
+      text-decoration: none
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* Fallback: reveal all after 3s in case IO fails */
+    @media print {
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important
+      }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:960px) {
+      .profile-grid {
+        grid-template-columns: 1fr
+      }
+
+      .profile-card {
+        position: static
+      }
+    }
+
+    @media(max-width:720px) {
+      .contact-grid {
+        grid-template-columns: 1fr
+      }
+
+      .social-links {
+        grid-template-columns: 1fr
+      }
+
+      .nav-links a {
+        padding: .38rem .55rem;
+        font-size: .67rem
+      }
+    }
+
+    @media(max-width:540px) {
+      .form-row {
+        grid-template-columns: 1fr
+      }
+
+      .hero-stats {
+        gap: 1.5rem
+      }
+
+      .hero-title {
+        font-size: 3rem;
+        letter-spacing: -2px
+      }
+    }
+
+    /* ── NEW PROFILE SECTION ── */
+    .profile-grid-new {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      align-items: start
+    }
+
+    .profile-photo-col {
+      position: sticky;
+      top: 85px
+    }
+
+    .profile-photo-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0, 229, 200, .12);
+      aspect-ratio: 3/4;
+      background: var(--glass)
+    }
+
+    .profile-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block
+    }
+
+    .profile-details-col {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem
+    }
+
+    .profile-name {
+      font-family: var(--fh);
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: .2rem
+    }
+
+    .profile-role {
+      font-size: .85rem;
+      color: var(--teal);
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: .8rem
+    }
+
+    .profile-bio {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.85;
+      margin-bottom: .4rem
+    }
+
+    .profile-info-row {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      padding: .45rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .83rem
+    }
+
+    .pil {
+      color: var(--muted);
+      min-width: 110px;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .06em
+    }
+
+    .piv {
+      font-weight: 500;
+      color: var(--text)
+    }
+
+    .profile-socials {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-top: .8rem
+    }
+
+    @media(max-width:860px) {
+      .profile-grid-new {
+        grid-template-columns: 1fr
+      }
+
+      .profile-photo-col {
+        position: static
+      }
+
+      .profile-photo-wrap {
+        aspect-ratio: 1/1;
+        max-width: 220px;
+        margin: 0 auto
+      }
+    }
+
+
+    /* ── CERT IMAGE CHIPS ── */
+    .cert-img-chip {
+      flex-shrink: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .3);
+      transition: transform .25s, box-shadow .25s;
+      cursor: pointer
+    }
+
+    .cert-img-chip:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 28px rgba(0, 229, 200, .18)
+    }
+
+    .cert-img {
+      height: 160px;
+      width: auto;
+      display: block;
+      object-fit: cover
+    }
+
+    .cert-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .7rem 1.2rem;
+      background: rgba(3, 6, 18, .65);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      white-space: nowrap;
+      transition: border-color .25s, transform .25s;
+      cursor: default;
+      flex-shrink: 0
+    }
+
+    .cert-chip:hover {
+      border-color: var(--teal);
+      transform: translateY(-2px)
+    }
+
+    .cert-chip-icon {
+      font-size: 1.4rem;
+      line-height: 1
+    }
+
+    .cert-chip-name {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2
+    }
+
+    .cert-chip-org {
+      font-size: .65rem;
+      color: var(--teal);
+      margin-top: .15rem;
+      letter-spacing: .04em
+    }
+
+    /* ── CERT OVERLAY ── */
+    .cert-chip-wrap {
+      position: relative;
+      display: inline-block;
+      flex-shrink: 0
+    }
+
+    .cert-chip-wrap .cert-view-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 8, .65);
+      backdrop-filter: blur(4px);
+      border-radius: 10px;
+      opacity: 0;
+      transition: opacity .25s;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+    }
+
+    .cert-chip-wrap:hover .cert-view-btn {
+      opacity: 1
+    }
+
+    .cert-view-btn span {
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      color: #000;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: .45rem 1.1rem;
+      border-radius: 100px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 16px rgba(0, 229, 200, .35);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- THREE.JS BACKGROUND CANVAS -->
+  <canvas id="space-canvas"></canvas>
+  <!-- FLUID CURSOR CANVAS -->
+  <canvas id="fluid-canvas"></canvas>
+
+  <!-- ═══ HIDDEN SVG ICONS ═══ -->
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Python -->
+    <symbol id="ico-python" viewBox="0 0 128 128">
+      <path fill="#3776ab"
+        d="M64 12.001c-3.13 0-5.882.261-8.242.748-6.953 1.417-7.666 4.319-7.666 8.527v6.621h15.908v2.12H39.231c-6.85 0-12.824 4.106-14.706 11.956-2.17 9.006-2.264 14.613 0 24.015h3.082l.001.002c1.688 7.025 5.71 11.956 12.562 11.956h8.739V65.801c0-7.823 6.746-14.733 14.762-14.733h23.596c6.533 0 11.77-5.419 11.77-12.04v-23.01c0-6.425-5.385-11.237-11.77-12.316-3.32-.544-6.802-.701-10.271-.701zm-12.72 7.24a4.436 4.436 0 1 1 0 8.872 4.436 4.436 0 0 1 0-8.872z" />
+      <path fill="#ffd343"
+        d="M64 115.999c3.13 0 5.882-.261 8.242-.748 6.953-1.417 7.666-4.319 7.666-8.527v-6.621H64v-2.12h24.769c6.85 0 12.824-4.106 14.706-11.956 2.17-9.006 2.264-14.613 0-24.015h-3.082a.014.014 0 0 0-.001-.002c-1.688-7.025-5.71-11.956-12.562-11.956h-8.739v13.144c0 7.823-6.746 14.733-14.762 14.733H40.734c-6.533 0-11.77 5.419-11.77 12.04v23.01c0 6.425 5.385 11.237 11.77 12.316 3.32.544 6.802.701 10.271.701zm12.72-7.24a4.436 4.436 0 1 1 0-8.872 4.436 4.436 0 0 1 0 8.872z" />
+    </symbol>
+    <!-- PyTorch -->
+    <symbol id="ico-pytorch" viewBox="0 0 128 128">
+      <path fill="#EE4C2C"
+        d="M64 4.5L28.9 39.6c-19.4 19.4-19.4 50.9 0 70.3 19.4 19.4 50.9 19.4 70.3 0 19.4-19.4 19.4-50.9 0-70.3L64 4.5zm15.2 24.3c3.5 0 6.3 2.8 6.3 6.3s-2.8 6.3-6.3 6.3-6.3-2.8-6.3-6.3 2.8-6.3 6.3-6.3zm-15 14.6c16.4 0 29.7 13.3 29.7 29.7S80.6 102.8 64.2 102.8c-16.4 0-29.7-13.3-29.7-29.7-.1-16.3 13.3-29.7 29.7-29.7z" />
+    </symbol>
+    <!-- TensorFlow -->
+    <symbol id="ico-tf" viewBox="0 0 128 128">
+      <path fill="#FF6F00"
+        d="M64 2L8 34v28l20-11.5V73L64 96l36-20.5v-23L120 64V34L64 2zm0 10l44 25-44 25-44-25L64 12zM18 47l36 20.5v22L18 69V47zm76 0v22l-36 20.5v-22L94 47z" />
+    </symbol>
+    <!-- Scikit-learn -->
+    <symbol id="ico-sklearn" viewBox="0 0 128 128">
+      <path fill="#F7931E" d="M64 8C33 8 8 33 8 64s25 56 56 56 56-25 56-56S95 8 64 8z" />
+      <path fill="#fff" d="M64 22c-23.2 0-42 18.8-42 42s18.8 42 42 42 42-18.8 42-42-18.8-42-42-42z" />
+      <path fill="#3499CD" d="M64 30c-18.8 0-34 15.2-34 34s15.2 34 34 34 34-15.2 34-34-15.2-34-34-34z" />
+      <path fill="#fff" d="M64 42c-12.1 0-22 9.9-22 22s9.9 22 22 22 22-9.9 22-22-9.9-22-22-22z" />
+      <path fill="#F7931E" d="M64 52c-6.6 0-12 5.4-12 12s5.4 12 12 12 12-5.4 12-12-5.4-12-12-12z" />
+      <path fill="#fff" d="M64 58a6 6 0 100 12 6 6 0 000-12z" />
+    </symbol>
+    <!-- Pandas -->
+    <symbol id="ico-pandas" viewBox="0 0 128 128">
+      <rect fill="#150458" x="44" y="16" width="14" height="96" />
+      <rect fill="#E70488" x="44" y="32" width="14" height="16" />
+      <rect fill="#E70488" x="44" y="80" width="14" height="16" />
+      <rect fill="#150458" x="70" y="16" width="14" height="96" />
+      <rect fill="#E70488" x="70" y="32" width="14" height="16" />
+      <rect fill="#E70488" x="70" y="80" width="14" height="16" />
+    </symbol>
+    <!-- NumPy -->
+    <symbol id="ico-numpy" viewBox="0 0 128 128">
+      <path fill="#4DABCF" d="M57 18L18 40v22l39 22 39-22V40L57 18zm0 8l28 16-28 16-28-16 28-16z" />
+      <path fill="#4D77CF" d="M18 62v22l39 22V84L18 62zm78 0L57 84v22l39-22V62z" />
+    </symbol>
+    <!-- OpenCV -->
+    <symbol id="ico-opencv" viewBox="0 0 128 128">
+      <circle fill="#5C8374" cx="64" cy="24" r="20" />
+      <circle fill="#C0392B" cx="24" cy="94" r="20" />
+      <circle fill="#2980B9" cx="104" cy="94" r="20" />
+      <path d="M44 90Q64 56 84 90" stroke="#5C8374" stroke-width="9" fill="none" />
+      <path d="M26 72Q46 38 64 42" stroke="#C0392B" stroke-width="9" fill="none" />
+      <path d="M102 72Q82 38 64 42" stroke="#2980B9" stroke-width="9" fill="none" />
+    </symbol>
+    <!-- YOLO -->
+    <symbol id="ico-yolo" viewBox="0 0 128 128">
+      <rect fill="#111" rx="14" x="4" y="4" width="120" height="120" />
+      <text x="64" y="52" text-anchor="middle" font-size="28" font-weight="900" fill="#FF4444"
+        font-family="Arial,sans-serif">YOLO</text>
+      <text x="64" y="84" text-anchor="middle" font-size="22" font-weight="700" fill="#fff"
+        font-family="Arial,sans-serif">v8</text>
+      <rect fill="#FF4444" x="20" y="92" width="88" height="3" rx="2" />
+    </symbol>
+    <!-- Streamlit -->
+    <symbol id="ico-streamlit" viewBox="0 0 128 128">
+      <rect fill="#FF4B4B" rx="14" x="4" y="4" width="120" height="120" />
+      <path d="M28 50c0-12 8-20 20-20h32c12 0 20 8 20 20s-8 20-20 20H48c-12 0-20 8-20 20s8 20 20 20h32c12 0 20-8 20-20"
+        stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" />
+    </symbol>
+    <!-- Docker -->
+    <symbol id="ico-docker" viewBox="0 0 128 128">
+      <path fill="#019BC6"
+        d="M113 54c-2-1.5-7-2-11-1.5-.5-3.5-3-7-7-10l-2-1.5-1.5 2c-2 3-2.5 8-2 12-2-1-5-2-9-2H10l-.5 1.5C8 61 9 72 16 80c5 5.5 13 8.5 22 8.5 21 0 37-9.5 44-27 3 0 9 .2 12-5.5l1-2-2-2zM20 56H11v8.5h9V56zm11 0H22v8.5h9V56zm11 0H33v8.5h9V56zm11 0H44v8.5h9V56zM42 45H33v9h9v-9zm11 0H44v9h9v-9zm11 0H55v9h9v-9zM53 34H44v9h9v-9z" />
+    </symbol>
+    <!-- AWS -->
+    <symbol id="ico-aws" viewBox="0 0 128 128">
+      <path fill="#FF9900"
+        d="M109.2,93.4c-13.3,8.7-31.5,13.6-50.6,13.6c-21.7,0-41.2-6.5-56-17.1c-1.2-0.9-0.6-2.2,0.9-1.5c16.2,7.4,36.5,11.8,57.1,11.8 c14.2,0,31-2.8,46.1-9.9C109.1,89.2,111.4,91.9,109.2,93.4z" />
+      <path fill="#FF9900"
+        d="M114.7,81.1c-1.4-1.8-4.7-1.4-4.4,0.9c0.4,2.5,1.2,8.2,0.8,10.7c-0.2,1.9-1.6,1.4-2.8,0.5 c-1.7-1.3-6.8-5.6-8.9-7.5c-1.8-1.5-2.8,1.2-1.1,2.7c4.6,3.8,11.3,9,13.7,10.6c2.2,1.5,4.3,0.3,4.6-2.2 c0.4-2.5,1.2-10.7-1.9-15.1L114.7,81.1z" />
+      <path fill="white"
+        d="M16.9,64.2c0.2-2,0.8-3.8,1.7-5.3c1.6-2.5,4-4.1,7.2-4.1c3.5,0,5.9,1.7,7,5.5c0.1,0.5,0.1,0.9-0.1,1.1l-1.6,2.3c-0.4,0.6-1,0.6-1.4,0.1c-0.8-1.1-1.7-1.8-2.9-1.8c-1.5,0-2.3,0.9-2.5,2.4c-0.1,0.9,0.3,1.4,1.4,1.7l5.4,1.4c4.6,1.2,6.9,4,6.5,8.1c-0.3,4.3-3.6,7.5-8.2,7.5c-4.4,0-7.3-2.1-8.5-6.1c-0.1-0.5,0-0.9,0.3-1.2l2-2.3c0.4-0.5,1-0.5,1.4,0c1,1.1,2.3,1.9,3.9,1.9c1.9,0,2.8-1,3-2.5c0.2-1.2-0.5-2-2.6-2.5l-4.5-1.1C18.4,72.1,16.6,68.9,16.9,64.2z M54.7,55.3l5.5,27.1c0.1,0.7-0.3,1.3-1,1.3h-4.3c-0.6,0-1.1-0.5-1.2-1.1l-1.3-7.5c-1.4,1.8-3.5,3.2-6.5,3.2c-5.1,0-8.9-4.1-8.4-9.9c0.4-5.2,4.8-9.2,9.9-9.2c2.8,0,4.9,1,6.1,2.5l0-5c0-0.7,0.5-1.3,1.2-1.3H54.7z M50.4,70.1c0-2.9-2-5.1-4.8-5.1c-2.9,0-5.1,2.2-5.3,5.1c-0.2,2.9,1.8,5.1,4.7,5.1C47.9,75.2,50.2,73,50.4,70.1z M85.1,55.3l-3.3,27.1c-0.1,0.7-0.6,1.2-1.3,1.2h-3.9c-0.6,0-1.2-0.5-1.3-1.1l-2.6-12.8l-3,12.8c-0.1,0.6-0.7,1.1-1.3,1.1h-3.9c-0.7,0-1.2-0.5-1.3-1.2l-3.3-27.1c-0.1-0.7,0.4-1.3,1.2-1.3h4.2c0.6,0,1.1,0.5,1.2,1.1l1.6,15.1l2.4-15.1c0.1-0.6,0.6-1.1,1.3-1.1h3.7c0.7,0,1.2,0.5,1.3,1.1l2.4,15l1.6-15c0.1-0.7,0.6-1.1,1.2-1.1h4.2C84.7,54,85.2,54.6,85.1,55.3z" />
+    </symbol>
+    <!-- GCP -->
+    <symbol id="ico-gcp" viewBox="0 0 128 128">
+      <path fill="#4285F4" d="M79.5 38H48.5L32 66l16.5 28h31L96 66z" />
+      <path fill="#EA4335" d="M96 66l-16.5 28H96L112 66z" />
+      <path fill="#FBBC05" d="M32 66L48.5 38H32L16 66z" />
+      <path fill="#34A853" d="M48.5 94h31l-15.5 18z" />
+    </symbol>
+    <!-- Git -->
+    <symbol id="ico-git" viewBox="0 0 128 128">
+      <path fill="#F34F29"
+        d="M124.7 58L70 3.3c-3.5-3.5-9-3.5-12.5 0L45 16l16 16c3.7-1.3 8-.4 10.8 2.5 2.9 2.9 3.8 7.2 2.4 11L89.5 60.7c3.7-1.3 8-.3 10.8 2.5 4 4 4 10.7 0 14.7-4 4-10.7 4-14.7 0-3-3-4-7.4-2.5-11.2L68 51.5v40c.8.4 1.6 1 2.3 1.7 4 4 4 10.7 0 14.7-4 4-10.7 4-14.7 0-4-4-4-10.7 0-14.7.9-.9 2-1.6 3-2.1V51c-1-.5-2-1.2-3-2.1-3-3-4-7.5-2.4-11.3L37 21.8 3.3 55.8c-3.5 3.5-3.5 9 0 12.5l54.2 54.2c3.5 3.5 9 3.5 12.5 0L124.7 69c3.4-3.5 3.4-9 0-11z" />
+    </symbol>
+    <!-- FastAPI -->
+    <symbol id="ico-fastapi" viewBox="0 0 128 128">
+      <circle fill="#059669" cx="64" cy="64" r="58" />
+      <path fill="#fff" d="M72 20L34 72h32l-8 36 44-56H70l8-32z" />
+    </symbol>
+    <!-- Tableau -->
+    <symbol id="ico-tableau" viewBox="0 0 128 128">
+      <rect fill="#fff" x="0" y="0" width="128" height="128" />
+      <rect fill="#E97627" x="58" y="10" width="12" height="108" />
+      <rect fill="#E97627" x="10" y="58" width="108" height="12" />
+      <rect fill="#5B9BD5" x="58" y="32" width="12" height="64" />
+      <rect fill="#5B9BD5" x="32" y="58" width="64" height="12" />
+      <rect fill="#59A14F" x="58" y="46" width="12" height="36" />
+      <rect fill="#59A14F" x="46" y="58" width="36" height="12" />
+      <circle fill="#E97627" cx="64" cy="14" r="8" />
+      <circle fill="#E97627" cx="64" cy="114" r="8" />
+      <circle fill="#E97627" cx="14" cy="64" r="8" />
+      <circle fill="#E97627" cx="114" cy="64" r="8" />
+    </symbol>
+    <!-- PowerBI -->
+    <symbol id="ico-powerbi" viewBox="0 0 128 128">
+      <rect fill="#F2C811" rx="14" x="4" y="4" width="120" height="120" />
+      <rect fill="#000" rx="3" x="30" y="44" width="16" height="56" />
+      <rect fill="#000" rx="3" x="56" y="28" width="16" height="72" />
+      <rect fill="#000" rx="3" x="82" y="14" width="16" height="86" />
+    </symbol>
+    <!-- SQL -->
+    <symbol id="ico-sql" viewBox="0 0 128 128">
+      <rect fill="#336791" rx="14" x="4" y="4" width="120" height="120" />
+      <ellipse fill="#fff" cx="64" cy="38" rx="36" ry="14" />
+      <path fill="none" stroke="#fff" stroke-width="5" d="M28 38v18c0 7.7 16.1 14 36 14s36-6.3 36-14V38" />
+      <path fill="none" stroke="#fff" stroke-width="5" d="M28 56v18c0 7.7 16.1 14 36 14s36-6.3 36-14V56" />
+      <path fill="none" stroke="#fff" stroke-width="5" d="M28 74v16c0 7.7 16.1 14 36 14s36-6.3 36-14V74" />
+    </symbol>
+
+    <!-- PySpark -->
+    <symbol id="ico-pyspark" viewBox="0 0 128 128">
+      <rect fill="#E25A1C" rx="12" x="4" y="4" width="120" height="120" />
+      <text x="64" y="48" text-anchor="middle" font-size="18" font-weight="900" fill="#fff"
+        font-family="Arial,sans-serif">Py</text>
+      <text x="64" y="74" text-anchor="middle" font-size="18" font-weight="900" fill="#FFC836"
+        font-family="Arial,sans-serif">Spark</text>
+      <path d="M34 88 Q64 76 94 88" stroke="#FFC836" stroke-width="5" fill="none" stroke-linecap="round" />
+    </symbol>
+    <!-- OpenAI -->
+    <symbol id="ico-openai" viewBox="0 0 128 128">
+      <rect fill="#10A37F" rx="12" x="4" y="4" width="120" height="120" />
+      <circle cx="64" cy="64" r="30" fill="none" stroke="#fff" stroke-width="7" />
+      <circle cx="64" cy="34" r="8" fill="#fff" />
+      <circle cx="90" cy="79" r="8" fill="#fff" />
+      <circle cx="38" cy="79" r="8" fill="#fff" />
+    </symbol>
+    <!-- RoboFlow -->
+    <symbol id="ico-roboflow" viewBox="0 0 128 128">
+      <rect fill="#6706CE" rx="12" x="4" y="4" width="120" height="120" />
+      <circle cx="64" cy="54" r="22" fill="none" stroke="#fff" stroke-width="7" />
+      <rect fill="#fff" rx="5" x="44" y="82" width="40" height="12" />
+      <circle cx="64" cy="54" r="8" fill="#fff" />
+    </symbol>
+    <!-- Computer Vision -->
+    <symbol id="ico-cv" viewBox="0 0 128 128">
+      <rect fill="#1a1a2e" rx="12" x="4" y="4" width="120" height="120" />
+      <ellipse cx="64" cy="64" rx="46" ry="28" fill="none" stroke="#00e5c8" stroke-width="6" />
+      <circle cx="64" cy="64" r="14" fill="#00e5c8" />
+      <circle cx="64" cy="64" r="6" fill="#1a1a2e" />
+    </symbol>
+    <!-- GenAI -->
+    <symbol id="ico-genai" viewBox="0 0 128 128">
+      <rect fill="#1a1a2e" rx="12" x="4" y="4" width="120" height="120" />
+      <path d="M64 20 L74 54 L108 54 L81 74 L91 108 L64 88 L37 108 L47 74 L20 54 L54 54 Z" fill="#a855f7" />
+    </symbol>
+    <!-- NLP -->
+    <symbol id="ico-nlp" viewBox="0 0 128 128">
+      <rect fill="#1a1a2e" rx="12" x="4" y="4" width="120" height="120" />
+      <rect fill="#4488ff" rx="8" x="18" y="38" width="92" height="16" />
+      <rect fill="#4488ff" rx="8" x="18" y="60" width="70" height="16" />
+      <rect fill="#4488ff" rx="8" x="18" y="82" width="82" height="16" />
+    </symbol>
+    <!-- Predictive Analytics -->
+    <symbol id="ico-pred" viewBox="0 0 128 128">
+      <rect fill="#1a1a2e" rx="12" x="4" y="4" width="120" height="120" />
+      <polyline points="18,100 40,72 62,55 84,38 110,22" fill="none" stroke="#00e5c8" stroke-width="6"
+        stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="110" cy="22" r="7" fill="#00e5c8" />
+    </symbol>
+    <!-- Feature Engineering -->
+    <symbol id="ico-feat" viewBox="0 0 128 128">
+      <rect fill="#1a1a2e" rx="12" x="4" y="4" width="120" height="120" />
+      <circle cx="64" cy="64" r="30" fill="none" stroke="#4488ff" stroke-width="6" />
+      <line x1="64" y1="34" x2="64" y2="14" stroke="#4488ff" stroke-width="6" stroke-linecap="round" />
+      <line x1="64" y1="94" x2="64" y2="114" stroke="#4488ff" stroke-width="6" stroke-linecap="round" />
+      <line x1="34" y1="64" x2="14" y2="64" stroke="#4488ff" stroke-width="6" stroke-linecap="round" />
+      <line x1="94" y1="64" x2="114" y2="64" stroke="#4488ff" stroke-width="6" stroke-linecap="round" />
+      <circle cx="64" cy="64" r="10" fill="#4488ff" />
+    </symbol>
+    <!-- Prompt Engineering -->
+    <symbol id="ico-prompt" viewBox="0 0 128 128">
+      <rect fill="#1a1a2e" rx="12" x="4" y="4" width="120" height="120" />
+      <text x="22" y="72" font-size="36" font-weight="900" fill="#00e5c8" font-family="monospace">&gt;_</text>
+    </symbol>
+    <!-- Explainable AI -->
+    <symbol id="ico-xai" viewBox="0 0 128 128">
+      <rect fill="#1a1a2e" rx="12" x="4" y="4" width="120" height="120" />
+      <circle cx="64" cy="50" r="24" fill="none" stroke="#a855f7" stroke-width="6" />
+      <line x1="64" y1="74" x2="64" y2="100" stroke="#a855f7" stroke-width="6" stroke-linecap="round" />
+      <circle cx="64" cy="112" r="6" fill="#a855f7" />
+    </symbol>
+    <!-- MLOps -->
+    <symbol id="ico-mlops" viewBox="0 0 128 128">
+      <rect fill="#1a1a2e" rx="12" x="4" y="4" width="120" height="120" />
+      <circle cx="36" cy="64" r="16" fill="none" stroke="#00e5c8" stroke-width="5" />
+      <circle cx="92" cy="64" r="16" fill="none" stroke="#4488ff" stroke-width="5" />
+      <line x1="52" y1="64" x2="76" y2="64" stroke="#a855f7" stroke-width="5" stroke-linecap="round" />
+      <polygon points="76,56 92,64 76,72" fill="#a855f7" />
+    </symbol>
+  </svg>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav>
+    <a class="logo" href="#home">Gayal</a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">Profile</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact" class="nav-cta">Get In Touch</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══ HOME ═══ -->
+  <section id="home">
+    <div class="hero-inner">
+      <div class="hero-badge"><span class="dot"></span>Open to Work &mdash; AI/ML Roles</div>
+      <h1 class="hero-title">
+        <span class="g1">Hi, I&rsquo;m</span><br>
+        <span class="g2">Gayal</span>
+      </h1>
+      <div class="typed-row">
+        <span class="typed-pre">I&rsquo;m a</span>
+        <span class="typed-word" id="typed-el"></span>
+        <span class="typed-cursor"></span>
+      </div>
+      <p class="hero-desc">AI/ML Engineer specializing in Computer Vision, Predictive Analytics, and Generative AI
+        solutions that deliver measurable business impact.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-outline">View My Work &#8595;</a>
+        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">96%</div>
+          <div class="stat-lbl">Best Model Accuracy</div>
+        </div>
+        <div>
+          <div class="stat-num">$1M+</div>
+          <div class="stat-lbl">Cost Savings Delivered</div>
+        </div>
+        <div>
+          <div class="stat-num">20%+</div>
+          <div class="stat-lbl">Efficiency Improvements</div>
+        </div>
+        <div>
+          <div class="stat-num">3</div>
+          <div class="stat-lbl">Major AI Projects</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr class="divider" />
+
+  <!-- ═══ PROFILE ═══ -->
+  <section id="about">
+    <div class="label reveal">Who I Am</div>
+    <h2 class="heading reveal">My <em>Profile</em></h2>
+    <div class="profile-grid-new">
+      <!-- Photo: rectangle on the left -->
+      <div class="profile-photo-col">
+        <div class="profile-photo-wrap">
+          <img
+            src="images/image_png_0001.png"
+            alt="Gayal C Ashok" class="profile-photo-img" />
+        </div>
+      </div>
+      <!-- Details on the right -->
+      <div class="profile-details-col">
+        <div class="label" style="margin-bottom:.4rem">Who I Am</div>
+        <h3 class="profile-name">Gayal C Ashok</h3>
+        <div class="profile-role">AI/ML Engineer &amp; Data Scientist</div>
+        <p class="profile-bio">Results-driven AI/ML Engineer with expertise in developing end-to-end machine learning
+          systems and production-ready AI solutions. Specialized in Computer Vision (YOLO), Generative AI integration,
+          and Predictive Analytics.</p>
+        <p class="profile-bio">Proven track record of building high-accuracy models (86&ndash;96%) that deliver
+          measurable business impact, including $1M+ in cost savings and 20%+ efficiency improvements. Passionate about
+          leveraging cutting-edge AI technologies to solve real-world problems.</p>
+        <div class="profile-info-row"><span class="pil">Location</span><span class="piv">Kannur, Kerala, India</span>
+        </div>
+        <div class="profile-info-row"><span class="pil">Phone</span><span class="piv">+91 7736737580</span></div>
+        <div class="profile-info-row"><span class="pil">Email</span><span class="piv"><a
+              href="/cdn-cgi/l/email-protection" class="__cf_email__"
+              data-cfemail="f394928a929f90c2c3b3949e929a9fdd909c9e">[email&#160;protected]</a></span></div>
+        <div class="profile-info-row"><span class="pil">Status</span><span class="piv" style="color:var(--teal)">&#9679;
+            Open to Work</span></div>
+        <div class="profile-info-row"><span class="pil">Availability</span><span class="piv"
+            style="color:var(--teal)">Immediately &#10003;</span></div>
+        <div class="profile-socials">
+          <a href="https://www.linkedin.com/in/gayal-c-ashok" target="_blank" class="soc-btn" title="LinkedIn"
+            style="background:rgba(0,119,181,.15);border-color:rgba(0,119,181,.3)">
+            <svg viewBox="0 0 24 24" fill="#0077B5">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+          </a>
+          <a href="https://github.com/Gayal-C-Ashok" target="_blank" class="soc-btn" title="GitHub"
+            style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)">
+            <svg viewBox="0 0 24 24" fill="#fff">
+              <path
+                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+            </svg>
+          </a>
+          <a href="https://www.kaggle.com/gayalcashok" target="_blank" class="soc-btn" title="Kaggle"
+            style="background:rgba(32,178,213,.15);border-color:rgba(32,178,213,.3)">
+            <svg viewBox="0 0 24 24" fill="#20BEFF">
+              <path
+                d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.285.18.046.149.034.27-.036.361l-6.555 6.344 6.836 8.507c.095.104.117.208.07.342" />
+            </svg>
+          </a>
+          <a href="https://huggingface.co/Gayal-C-Ashok" target="_blank" class="soc-btn" title="HuggingFace"
+            style="background:rgba(255,210,30,.12);border-color:rgba(255,210,30,.3)">
+            <svg viewBox="0 0 24 24">
+              <circle fill="#FFD21E" cx="12" cy="12" r="11.5" />
+              <ellipse fill="#1A1A1A" cx="8.5" cy="10.5" rx="1.5" ry="2" />
+              <ellipse fill="#1A1A1A" cx="15.5" cy="10.5" rx="1.5" ry="2" />
+              <ellipse fill="#fff" cx="9" cy="9.8" rx=".7" ry=".9" />
+              <ellipse fill="#fff" cx="16" cy="9.8" rx=".7" ry=".9" />
+              <path d="M8 15.5Q12 18.5 16 15.5" stroke="#1A1A1A" stroke-width=".9" fill="none" stroke-linecap="round" />
+              <path fill="#FF9800" d="M9 7Q9.3 5 10.8 5.8Q12 4 13.2 5.8Q14.7 5 15 7Q13.5 6.3 12 6.5Q10.5 6.3 9 7z" />
+            </svg>
+          </a>
+          <a href="assets/CV/Gayal_Ashok_AI_ML_Data_Scientist.pdf" download class="soc-btn" title="Download CV"
+            style="background:rgba(0,229,200,.12);border-color:rgba(0,229,200,.3);padding:0 .9rem;gap:.4rem;width:auto;border-radius:12px;font-size:.72rem;font-weight:600;color:var(--teal);letter-spacing:.04em">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download CV
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr class="divider" />
+
+  <!-- ═══ SKILLS ═══ -->
+  <section id="skills">
+    <div class="label reveal">Expertise</div>
+    <h2 class="heading reveal">Technical <em>Skills</em></h2>
+
+    <!-- Row 1 — Core ML Libraries -->
+    <div class="marquee-wrap reveal">
+      <div class="marquee-track go-ltr">
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-python" />
+          </svg><span>Python</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-pytorch" />
+          </svg><span>PyTorch</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-tf" />
+          </svg><span>TensorFlow</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-sklearn" />
+          </svg><span>Scikit-learn</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-pandas" />
+          </svg><span>Pandas</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-numpy" />
+          </svg><span>NumPy</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-opencv" />
+          </svg><span>OpenCV</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-yolo" />
+          </svg><span>YOLOv8</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-streamlit" />
+          </svg><span>Streamlit</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-sql" />
+          </svg><span>SQL</span></div>
+        <!-- duplicate for infinite scroll -->
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-python" />
+          </svg><span>Python</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-pytorch" />
+          </svg><span>PyTorch</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-tf" />
+          </svg><span>TensorFlow</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-sklearn" />
+          </svg><span>Scikit-learn</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-pandas" />
+          </svg><span>Pandas</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-numpy" />
+          </svg><span>NumPy</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-opencv" />
+          </svg><span>OpenCV</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-yolo" />
+          </svg><span>YOLOv8</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-streamlit" />
+          </svg><span>Streamlit</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-sql" />
+          </svg><span>SQL</span></div>
+      </div>
+    </div>
+
+    <!-- Row 2 — DevOps / Cloud / Viz -->
+    <div class="marquee-wrap reveal">
+      <div class="marquee-track go-rtl">
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-docker" />
+          </svg><span>Docker</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-aws" />
+          </svg><span>AWS</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-gcp" />
+          </svg><span>GCP</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-git" />
+          </svg><span>Git</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-fastapi" />
+          </svg><span>FastAPI</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-tableau" />
+          </svg><span>Tableau</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-powerbi" />
+          </svg><span>Power BI</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-pyspark" />
+          </svg><span>PySpark</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-openai" />
+          </svg><span>OpenAI API</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-roboflow" />
+          </svg><span>RoboFlow</span></div>
+        <!-- duplicate -->
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-docker" />
+          </svg><span>Docker</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-aws" />
+          </svg><span>AWS</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-gcp" />
+          </svg><span>GCP</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-git" />
+          </svg><span>Git</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-fastapi" />
+          </svg><span>FastAPI</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-tableau" />
+          </svg><span>Tableau</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-powerbi" />
+          </svg><span>Power BI</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-pyspark" />
+          </svg><span>PySpark</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-openai" />
+          </svg><span>OpenAI API</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-roboflow" />
+          </svg><span>RoboFlow</span></div>
+      </div>
+    </div>
+
+    <!-- Row 3 — Domain Expertise -->
+    <div class="marquee-wrap reveal">
+      <div class="marquee-track go-ltr2">
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-cv" />
+          </svg><span>Computer Vision</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-genai" />
+          </svg><span>Generative AI</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-nlp" />
+          </svg><span>NLP</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-pred" />
+          </svg><span>Predictive Analytics</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-feat" />
+          </svg><span>Feature Engineering</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-prompt" />
+          </svg><span>Prompt Engineering</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-xai" />
+          </svg><span>Explainable AI</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-mlops" />
+          </svg><span>MLOps</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-cv" />
+          </svg><span>Computer Vision</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-genai" />
+          </svg><span>Generative AI</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-nlp" />
+          </svg><span>NLP</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-pred" />
+          </svg><span>Predictive Analytics</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-feat" />
+          </svg><span>Feature Engineering</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-prompt" />
+          </svg><span>Prompt Engineering</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-xai" />
+          </svg><span>Explainable AI</span></div>
+        <div class="skill-chip"><svg width="24" height="24">
+            <use href="#ico-mlops" />
+          </svg><span>MLOps</span></div>
+      </div>
+    </div>
+  </section>
+  <hr class="divider" />
+
+  <!-- ═══ EDUCATION ═══ -->
+  <section id="education">
+    <div class="label reveal">Academic Background</div>
+    <h2 class="heading reveal">My <em>Education</em></h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-item-inner">
+          <div class="edu-cover"><img
+              src="images/image_png_0002.png"
+              alt="SUNY Campus" /></div>
+          <div class="tl-item-body">
+            <div class="tl-date">2024</div>
+            <div class="tl-title">PGDM in Artificial Intelligence &mdash; Remote</div>
+            <div class="tl-org">State University of New York (SUNY), USA</div>
+            <span class="tl-tag">Scholarship Recipient</span>
+            <span class="tl-tag">NEF Appuji Award</span>
+            <span class="tl-tag">360DigiTMG India</span>
+            <div class="tl-desc" style="margin-top:.6rem">Advanced coursework in AI, Machine Learning, Deep Learning,
+              Neural Networks and Data Science. Recipient of the prestigious NEF Appuji Award (USA) and 360DigiTMG
+              Scholarship (India).</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-item-inner">
+          <div class="edu-cover"><img
+              src="images/image_png_0003.png"
+              alt="Kannur University" /></div>
+          <div class="tl-item-body">
+            <div class="tl-date">2020 &ndash; 2023</div>
+            <div class="tl-title">BSc Computer Science</div>
+            <div class="tl-org">Kannur University, Kerala, India</div>
+            <div class="tl-desc" style="margin-top:.4rem">Strong foundation in algorithms, data structures, programming
+              paradigms, database systems, and software engineering principles.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr class="divider" />
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section id="experience">
+    <div class="label reveal">Career</div>
+    <h2 class="heading reveal">Work <em>Experience</em></h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">March 2024 &ndash; November 2024</div>
+        <div class="tl-title">Data Scientist Intern</div>
+        <div class="tl-org">InnoDatatics &nbsp;&middot;&nbsp; Internship &nbsp;&middot;&nbsp; 9 months</div>
+        <div class="tl-desc">
+          <p>&bull; Enhanced a YOLO-based defect detection model, improving accuracy from <strong
+              style="color:var(--teal)">89% to 94%</strong> and reducing system downtime by <strong
+              style="color:var(--teal)">15%</strong></p>
+          <p>&bull; Engineered optimized data pipelines using PySpark and SQL, achieving <strong
+              style="color:var(--teal)">30% faster</strong> data processing speeds</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">November 2022 &ndash; April 2023</div>
+        <div class="tl-title">Software Development Engineer</div>
+        <div class="tl-org">My Health Mobile App &nbsp;&middot;&nbsp; RISS Technology &nbsp;&middot;&nbsp; 6 months
+        </div>
+        <div class="tl-desc">
+          <p>&bull; Developed a full-stack health monitoring application using <strong style="color:var(--teal)">PHP,
+              MySQL, and AngularJS</strong>, implementing secure user authentication and personalized goal-tracking
+            features</p>
+          <p>&bull; Integrated Android Studio for mobile app development, including appointment reminders and drug
+            information functionality, successfully <strong style="color:var(--teal)">launching on Play Store</strong>
+            with positive user feedback</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr class="divider" />
+
+  <!-- ═══ PROJECTS ═══ -->
+  <section id="projects">
+    <div class="label reveal">Portfolio</div>
+    <h2 class="heading reveal">Featured <em>Projects</em></h2>
+    <div class="projects-grid">
+
+      <div class="proj-card reveal">
+        <div class="proj-cover"><img
+            src="images/image_png_0004.png"
+            alt="Credit Risk" class="proj-cover-img" /></div>
+        <div class="proj-title">Gen AI-Powered Credit Risk Prediction System</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">Scikit-learn</span><span class="proj-tag">OpenAI
+            API</span><span class="proj-tag">Streamlit</span><span class="proj-tag">Explainable AI</span>
+        </div>
+        <div class="proj-desc">End-to-end credit risk prediction system integrated with Generative AI for explainable AI
+          outputs. Real-time Streamlit dashboard enabling actionable insights for financial decision-making.</div>
+        <div class="proj-links">
+          <a class="proj-link" href="https://github.com/Gayal-C-Ashok/ML-GenAI-Credit-Risk-System"
+            target="_blank">&#9711; GitHub</a>
+          <a class="proj-link" href="#" target="_blank">&#8599; Live Demo</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal" style="animation-delay:.1s">
+        <div class="proj-cover"><img
+            src="images/image_png_0005.png"
+            alt="Vials Counting" class="proj-cover-img" /></div>
+        <div class="proj-title">Automated Syringes &amp; Vials Counting System</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">YOLOv8</span><span
+            class="proj-tag">TensorFlow</span><span class="proj-tag">Streamlit</span><span class="proj-tag">Computer
+            Vision</span>
+        </div>
+        <div class="proj-desc">Computer vision system for automated high-accuracy counting of syringes and vials on
+          production lines. Deployed via scalable Streamlit interface saving massive operational costs.</div>
+        <div class="proj-links">
+          <a class="proj-link" href="https://github.com/Gayal-C-Ashok/Syringes-And-Vials-Counting-System"
+            target="_blank">&#9711; GitHub</a>
+          <a class="proj-link" href="#" target="_blank">&#8599; Live Demo</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal" style="animation-delay:.2s">
+        <div class="proj-cover"><img
+            src="images/image_png_0006.png"
+            alt="Solar Power" class="proj-cover-img" /></div>
+        <div class="proj-title">Solar Power Generation Prediction Model</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">SVM</span><span
+            class="proj-tag">Scikit-learn</span><span class="proj-tag">Streamlit</span><span
+            class="proj-tag">GridSearchCV</span>
+        </div>
+        <div class="proj-desc">Predictive maintenance model using SVM with GridSearchCV hyperparameter optimization for
+          solar power systems. Enables proactive fault detection to maximize energy output.</div>
+        <div class="proj-links">
+          <a class="proj-link" href="https://github.com/Gayal-C-Ashok/Solar-Power-Generation-Prediction-Model"
+            target="_blank">&#9711; GitHub</a>
+          <a class="proj-link" href="#" target="_blank">&#8599; Live Demo</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal" style="animation-delay:.3s">
+        <div class="proj-cover"><img
+            src="images/image_png_0007.png"
+            alt="Health App" class="proj-cover-img" /></div>
+        <div class="proj-title">My Health Mobile App</div>
+        <div class="proj-tags">
+          <span class="proj-tag">PHP</span><span class="proj-tag">MySQL</span><span class="proj-tag">Android
+            Studio</span><span class="proj-tag">AngularJS</span>
+        </div>
+        <div class="proj-desc">Full-stack health monitoring application with secure user authentication and personalized
+          goal-tracking. Android mobile interface with appointment reminders and drug information functionality.</div>
+        <div class="proj-links">
+          <a class="proj-link" href="#" target="_blank">&#9711; GitHub</a>
+          <a class="proj-link" href="#" target="_blank">&#8599; Play Store</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <hr class="divider" />
+
+  <!-- ═══ CERTIFICATIONS ═══ -->
+  <section id="certifications">
+    <div class="label reveal">Achievements</div>
+    <h2 class="heading reveal">Certifications &amp; <em>Awards</em></h2>
+    <div class="marquee-wrap reveal">
+      <div class="marquee-track go-ltr">
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0001.jpg"
+              alt="Certificate_AI" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0002.jpg"
+              alt="Certificate_Data_Science_using_Python___R_Programming" class="cert-img" /></div><a href="#"
+            class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0003.jpg"
+              alt="Certificate_Data_science" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0004.jpg"
+              alt="Certificate_nasscom_data_science" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0005.jpg"
+              alt="Certificate_nasscom_python" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0006.jpg"
+              alt="Certificate_Power_bi" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0007.jpg"
+              alt="Certificate_Pyhon" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0008.jpg"
+              alt="Certificate_AI" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0009.jpg"
+              alt="Certificate_Data_Science_using_Python___R_Programming" class="cert-img" /></div><a href="#"
+            class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0010.jpg"
+              alt="Certificate_Data_science" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0011.jpg"
+              alt="Certificate_nasscom_data_science" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0012.jpg"
+              alt="Certificate_nasscom_python" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0013.jpg"
+              alt="Certificate_Power_bi" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0014.jpg"
+              alt="Certificate_Pyhon" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="marquee-wrap reveal" style="margin-top:1rem">
+      <div class="marquee-track go-rtl">
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0015.jpg"
+              alt="Certificate_Pyhon" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0016.jpg"
+              alt="Certificate_SQL" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0017.jpg"
+              alt="Certificate_Tableau" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0018.jpg"
+              alt="Certificate-SUNY" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0019.jpg"
+              alt="Project_1" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0020.jpg"
+              alt="Project_2" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0021.jpg"
+              alt="TATA_Gen_AI" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0022.jpg"
+              alt="Certificate_Pyhon" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0023.jpg"
+              alt="Certificate_SQL" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0024.jpg"
+              alt="Certificate_Tableau" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0025.jpg"
+              alt="Certificate-SUNY" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0026.jpg"
+              alt="Project_1" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0027.jpg"
+              alt="Project_2" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+        <div class="cert-chip-wrap">
+          <div class="cert-img-chip"><img
+              src="images/image_jpg_0028.jpg"
+              alt="TATA_Gen_AI" class="cert-img" /></div><a href="#" class="cert-view-btn"
+            onclick="(function(e){e.preventDefault();var img=this.closest('.cert-chip-wrap').querySelector('img');var w=window.open('','_blank');w.document.write('<img src="'+img.src+'" style="
+            max-width:100%;height:auto;">');w.document.close();})(event)" target="_blank"><span>View</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr class="divider" />
+
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact">
+    <div class="label reveal">Let&rsquo;s Connect</div>
+    <h2 class="heading reveal">Get In <em>Touch</em></h2>
+    <div class="contact-grid">
+
+      <div class="contact-left">
+        <h3>Open to exciting<br>AI/ML opportunities</h3>
+        <p>Looking for AI/ML Engineer, Data Scientist, and Data Analyst roles. I build production-ready AI solutions
+          that deliver real business impact. Let&rsquo;s talk!</p>
+        <div class="social-links">
+
+          <a href="https://www.linkedin.com/in/gayal-c-ashok" target="_blank" class="soc-link">
+            <div class="soc-link-ico" style="background:rgba(0,119,181,.15)">
+              <svg viewBox="0 0 24 24" fill="#0077B5">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </div>
+            <div>
+              <div class="soc-link-label">LinkedIn</div>
+              <div class="soc-link-val">Gayal-C-Ashok</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/Gayal-C-Ashok" target="_blank" class="soc-link">
+            <div class="soc-link-ico" style="background:rgba(255,255,255,.08)">
+              <svg viewBox="0 0 24 24" fill="#fff">
+                <path
+                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+              </svg>
+            </div>
+            <div>
+              <div class="soc-link-label">GitHub</div>
+              <div class="soc-link-val">Gayal-C-Ashok</div>
+            </div>
+          </a>
+
+          <a href="https://www.kaggle.com/gayalcashok" target="_blank" class="soc-link">
+            <div class="soc-link-ico" style="background:rgba(32,178,213,.15)">
+              <svg viewBox="0 0 24 24" fill="#20BEFF">
+                <path
+                  d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.285.18.046.149.034.27-.036.361l-6.555 6.344 6.836 8.507c.095.104.117.208.07.342" />
+              </svg>
+            </div>
+            <div>
+              <div class="soc-link-label">Kaggle</div>
+              <div class="soc-link-val">Gayal-C-Ashok</div>
+            </div>
+          </a>
+
+          <a href="https://huggingface.co/Gayal-C-Ashok" target="_blank" class="soc-link">
+            <div class="soc-link-ico" style="background:rgba(255,210,30,.12)">
+              <svg viewBox="0 0 24 24" width="22" height="22">
+                <circle fill="#FFD21E" cx="12" cy="12" r="11.5" />
+                <ellipse fill="#1A1A1A" cx="8.5" cy="10.5" rx="1.5" ry="2" />
+                <ellipse fill="#1A1A1A" cx="15.5" cy="10.5" rx="1.5" ry="2" />
+                <ellipse fill="#fff" cx="9" cy="9.8" rx=".7" ry=".9" />
+                <ellipse fill="#fff" cx="16" cy="9.8" rx=".7" ry=".9" />
+                <path d="M8 15.5Q12 18.5 16 15.5" stroke="#1A1A1A" stroke-width=".9" fill="none"
+                  stroke-linecap="round" />
+                <path fill="#FF9800" d="M9 7Q9.3 5 10.8 5.8Q12 4 13.2 5.8Q14.7 5 15 7Q13.5 6.3 12 6.5Q10.5 6.3 9 7z" />
+              </svg>
+            </div>
+            <div>
+              <div class="soc-link-label">HuggingFace</div>
+              <div class="soc-link-val">Gayal-C-Ashok</div>
+            </div>
+          </a>
+
+          <a href="mailto:gayalc10@gmail.com" class="soc-link">
+            <div class="soc-link-ico" style="background:rgba(234,67,53,.12)">
+              <svg viewBox="0 0 24 24" fill="#EA4335">
+                <path
+                  d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.908 1.528-1.147C21.69 2.28 24 3.434 24 5.457z" />
+              </svg>
+            </div>
+            <div>
+              <div class="soc-link-label">Email</div>
+              <div class="soc-link-val">gayalc10@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="tel:+917736737580" class="soc-link">
+            <div class="soc-link-ico" style="background:rgba(0,229,200,.1)">
+              <svg viewBox="0 0 24 24" fill="#00e5c8">
+                <path
+                  d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z" />
+              </svg>
+            </div>
+            <div>
+              <div class="soc-link-label">Phone</div>
+              <div class="soc-link-val">+91 7736737580</div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <form class="contact-form" onsubmit="return false">
+        <div class="form-row">
+          <div class="form-group"><label>Name</label><input type="text" placeholder="Your Full Name" /></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com" /></div>
+        </div>
+        <div class="form-group"><label>Subject</label><input type="text"
+            placeholder="Job Opportunity / Collaboration / Project" /></div>
+        <div class="form-group"><label>Message</label><textarea
+            placeholder="Tell me about the role, project, or how we can work together..."></textarea></div>
+        <button type="submit" class="btn btn-primary" style="width:fit-content">Send Message &rarr;</button>
+      </form>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>Designed &amp; crafted by <a href="https://www.linkedin.com/in/gayal-c-ashok" target="_blank">Gayal C Ashok</a>
+      &nbsp;&bull;&nbsp; AI/ML Data Scientist &nbsp;&bull;&nbsp; &copy; 2025</p>
+  </footer>
+
+  <!-- ═══ THREE.JS SPACE SCENE ═══ -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    (function () {
+      const cv = document.getElementById('space-canvas');
+      const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: false });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000008, 1);
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x000008, 0.00018);
+      const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 4000);
+      camera.position.set(0, 25, 110);
+      window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+      });
+
+      function circleTex(sz, r, g, b, a0) {
+        const c = document.createElement('canvas'); c.width = c.height = sz;
+        const cx = c.getContext('2d');
+        const gd = cx.createRadialGradient(sz / 2, sz / 2, 0, sz / 2, sz / 2, sz / 2);
+        gd.addColorStop(0, `rgba(${r},${g},${b},${a0})`);
+        gd.addColorStop(.5, `rgba(${r},${g},${b},${a0 * .35})`);
+        gd.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        cx.fillStyle = gd; cx.fillRect(0, 0, sz, sz);
+        return new THREE.CanvasTexture(c);
+      }
+      function noiseTex(sz, r, g, b, sc) {
+        const c = document.createElement('canvas'); c.width = c.height = sz;
+        const cx = c.getContext('2d'); const id = cx.createImageData(sz, sz);
+        for (let i = 0; i < sz * sz; i++) {
+          const x = i % sz, y = Math.floor(i / sz);
+          const n = Math.sin(x * sc * .1 + y * sc * .13) * .5 + Math.sin(x * sc * .07 - y * sc * .09) * .3 + Math.random() * .2;
+          const v = Math.max(0, Math.min(1, n));
+          id.data[i * 4] = r; id.data[i * 4 + 1] = g; id.data[i * 4 + 2] = b; id.data[i * 4 + 3] = Math.floor(v * 255);
+        }
+        cx.putImageData(id, 0, 0);
+        const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
+      }
+
+      /* Galaxy */
+      function makeGalaxy() {
+        const N = 70000, pos = new Float32Array(N * 3), col = new Float32Array(N * 3), sz = new Float32Array(N);
+        const pal = [[1, .95, .8], [.7, .85, 1], [1, .7, .5], [.9, .9, 1], [.5, .9, .8], [1, .85, .6]];
+        for (let i = 0; i < N; i++) {
+          const t = Math.random(), i3 = i * 3; let x, y, z;
+          if (t < .6) {
+            const arm = Math.floor(Math.random() * 3), aA = (arm / 3) * Math.PI * 2;
+            const rr = Math.pow(Math.random(), .45) * 950;
+            const ang = aA + rr * .006 + (Math.random() - .5) * .8, sp = (1 - rr / 950) * 40 + 6;
+            x = Math.cos(ang) * rr + (Math.random() - .5) * sp * 2; y = (Math.random() - .5) * sp * .25; z = Math.sin(ang) * rr + (Math.random() - .5) * sp * 2;
+          } else if (t < .8) {
+            const phi = Math.acos(2 * Math.random() - 1), th = Math.random() * Math.PI * 2, rr = Math.pow(Math.random(), 2) * 140;
+            x = rr * Math.sin(phi) * Math.cos(th); y = rr * Math.sin(phi) * Math.sin(th) * .45; z = rr * Math.cos(phi);
+          } else {
+            const phi = Math.acos(2 * Math.random() - 1), th = Math.random() * Math.PI * 2, rr = 220 + Math.random() * 570;
+            x = rr * Math.sin(phi) * Math.cos(th); y = rr * Math.sin(phi) * Math.sin(th) * .3; z = rr * Math.cos(phi);
+          }
+          pos[i3] = x; pos[i3 + 1] = y; pos[i3 + 2] = z;
+          const dist = Math.sqrt(x * x + z * z), warm = Math.max(0, 1 - dist / 200);
+          const p = pal[Math.floor(Math.random() * pal.length)];
+          col[i3] = p[0] * (1 - warm * .3) + warm; col[i3 + 1] = p[1] * (1 - warm * .2) + warm * .9; col[i3 + 2] = p[2] * (1 - warm * .5) + warm * .6;
+          sz[i] = Math.random() < .012 ? 4 + Math.random() * 4 : .7 + Math.random() * 1.8;
+        }
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+        geo.setAttribute('size', new THREE.BufferAttribute(sz, 1));
+        const mat = new THREE.ShaderMaterial({
+          uniforms: { uTex: { value: circleTex(64, 255, 255, 255, 1) }, uTime: { value: 0 } },
+          vertexShader: `attribute float size;attribute vec3 color;varying vec3 vC;uniform float uTime;
+        void main(){vC=color;vec4 mv=modelViewMatrix*vec4(position,1.);
+        float tw=.8+.2*sin(uTime*1.8+position.x*.25+position.z*.3);
+        gl_PointSize=size*tw*(280./-mv.z);gl_Position=projectionMatrix*mv;}`,
+          fragmentShader: `precision mediump float;uniform sampler2D uTex;varying vec3 vC;
+        void main(){vec4 t=texture2D(uTex,gl_PointCoord);if(t.r<.04)discard;gl_FragColor=vec4(vC*pow(t.r,1.3),t.r*.92);}`,
+          transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, vertexColors: true
+        });
+        return new THREE.Points(geo, mat);
+      }
+      const galaxy = makeGalaxy();
+      galaxy.rotation.x = Math.PI * .07; galaxy.position.set(0, -30, -200); scene.add(galaxy);
+
+      /* Nebulae */
+      const nebDefs = [
+        { x: -220, y: 50, z: -350, s: 500, r: 25, g: 55, b: 190, a: .22 }, { x: 300, y: -25, z: -550, s: 420, r: 110, g: 18, b: 200, a: .18 },
+        { x: 60, y: 90, z: -180, s: 340, r: 0, g: 140, b: 170, a: .16 }, { x: -380, y: -40, z: -650, s: 560, r: 190, g: 35, b: 15, a: .13 },
+        { x: 200, y: 65, z: -130, s: 280, r: 70, g: 190, b: 80, a: .12 }, { x: -90, y: -70, z: -420, s: 380, r: 210, g: 70, b: 170, a: .14 },
+        { x: 450, y: 30, z: -280, s: 300, r: 0, g: 90, b: 210, a: .12 }, { x: -270, y: 110, z: -90, s: 230, r: 170, g: 50, b: 210, a: .13 }
+      ];
+      const nebulae = nebDefs.map(c => {
+        const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: circleTex(256, c.r, c.g, c.b, c.a), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+        sp.position.set(c.x, c.y, c.z); sp.scale.set(c.s, c.s, 1); scene.add(sp);
+        return { sp, ox: c.x, oy: c.y, phase: Math.random() * Math.PI * 2 };
+      });
+
+      /* Planet + moon */
+      const pGroup = new THREE.Group(); pGroup.position.set(240, -50, -380); scene.add(pGroup);
+      const planet = new THREE.Mesh(new THREE.SphereGeometry(32, 64, 64), new THREE.MeshPhongMaterial({ map: noiseTex(256, 30, 80, 200, 2), emissive: 0x081828, emissiveIntensity: .3, specular: 0x3355aa, shininess: 35 }));
+      pGroup.add(planet);
+      const atmSp = new THREE.Sprite(new THREE.SpriteMaterial({ map: circleTex(256, 50, 120, 255, .4), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+      atmSp.scale.set(130, 130, 1); pGroup.add(atmSp);
+      [[42, 5, .38], [55, 4, .25], [68, 3, .15]].forEach(([r, t, o]) => {
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(r, t, 2, 80), new THREE.MeshBasicMaterial({ color: 0x7799bb, transparent: true, opacity: o, side: THREE.DoubleSide }));
+        ring.rotation.x = Math.PI * .32; pGroup.add(ring);
+      });
+      const moonGroup = new THREE.Group(); pGroup.add(moonGroup);
+      const moon = new THREE.Mesh(new THREE.SphereGeometry(6, 32, 32), new THREE.MeshPhongMaterial({ color: 0xaabbcc, emissive: 0x112233, shininess: 8 }));
+      moon.position.set(70, 0, 0); moonGroup.add(moon);
+      const moonGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: circleTex(128, 150, 180, 220, .25), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+      moonGlow.scale.set(22, 22, 1); moon.add(moonGlow);
+
+      /* Second planet */
+      const p2 = new THREE.Group(); p2.position.set(-350, 80, -700); scene.add(p2);
+      p2.add(new THREE.Mesh(new THREE.SphereGeometry(18, 32, 32), new THREE.MeshPhongMaterial({ map: noiseTex(128, 180, 50, 20, 3), emissive: 0x301008, shininess: 20 })));
+      const p2atm = new THREE.Sprite(new THREE.SpriteMaterial({ map: circleTex(128, 255, 80, 30, .3), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+      p2atm.scale.set(65, 65, 1); p2.add(p2atm);
+
+      /* Foreground dust */
+      {
+        const N = 10000, pos = new Float32Array(N * 3);
+        for (let i = 0; i < N; i++) {
+          const r = 60 + Math.random() * 300, phi = Math.acos(2 * Math.random() - 1), th = Math.random() * Math.PI * 2;
+          pos[i * 3] = r * Math.sin(phi) * Math.cos(th); pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(th); pos[i * 3 + 2] = r * Math.cos(phi);
+        }
+        const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        scene.add(new THREE.Points(geo, new THREE.PointsMaterial({ size: .45, color: 0xbbddff, transparent: true, opacity: .5, blending: THREE.AdditiveBlending, depthWrite: false })));
+      }
+
+      /* Asteroid belt */
+      {
+        const N = 600, pos = new Float32Array(N * 3), sz2 = new Float32Array(N);
+        for (let i = 0; i < N; i++) {
+          const a = Math.random() * Math.PI * 2, r = 180 + Math.random() * 120;
+          pos[i * 3] = Math.cos(a) * r; pos[i * 3 + 1] = (Math.random() - .5) * 20; pos[i * 3 + 2] = Math.sin(a) * r - 200; sz2[i] = .8 + Math.random() * 2.5;
+        }
+        const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('size', new THREE.BufferAttribute(sz2, 1));
+        scene.add(new THREE.Points(geo, new THREE.ShaderMaterial({
+          vertexShader: `attribute float size;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);gl_PointSize=size*(200./-mv.z);gl_Position=projectionMatrix*mv;}`,
+          fragmentShader: `precision mediump float;void main(){vec2 uv=gl_PointCoord-.5;if(length(uv)>.5)discard;gl_FragColor=vec4(.6,.65,.7,(1.-length(uv)*2.)*.5);}`,
+          transparent: true, blending: THREE.AdditiveBlending, depthWrite: false
+        })));
+      }
+
+      /* Comets */
+      const comets = [];
+      function spawnComet() {
+        const speed = .12 + Math.random() * .18;
+        const dir = new THREE.Vector3(.65 + Math.random() * .4, -.22 - Math.random() * .2, -.04).normalize();
+        const tailLen = 80 + Math.random() * 120;
+        const pts = []; for (let t2 = 0; t2 <= 1; t2 += .04)pts.push(new THREE.Vector3(dir.x * tailLen * t2 * -1, dir.y * tailLen * t2 * -1, dir.z * tailLen * t2 * -1));
+        const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0xcceeff, transparent: true, opacity: .85 }));
+        const hd = new THREE.Sprite(new THREE.SpriteMaterial({ map: circleTex(64, 200, 240, 255, .9), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+        hd.scale.set(4, 4, 1);
+        const grp = new THREE.Group(); grp.add(line); grp.add(hd);
+        grp.position.set((Math.random() - .5) * 700, 100 + Math.random() * 200, -80 - Math.random() * 150);
+        scene.add(grp); comets.push({ grp, dir, speed, life: 1 });
+      }
+      spawnComet(); setTimeout(spawnComet, 3500); setTimeout(spawnComet, 7000); setInterval(spawnComet, 9000);
+
+      scene.add(new THREE.AmbientLight(0x111133, 2.5));
+      const sun = new THREE.DirectionalLight(0xffffff, .9); sun.position.set(500, 300, 200); scene.add(sun);
+
+      let time = 0, scrollY = 0, mx = 0, my = 0;
+      window.addEventListener('scroll', () => scrollY = window.scrollY);
+      window.addEventListener('mousemove', e => { mx = (e.clientX / window.innerWidth - .5) * .5; my = (e.clientY / window.innerHeight - .5) * .5; });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        time += .004;
+        galaxy.material.uniforms.uTime.value = time;
+        galaxy.rotation.y = time * .008;
+        nebulae.forEach(n => { n.sp.position.x = n.ox + Math.sin(time * .15 + n.phase) * 12; n.sp.position.y = n.oy + Math.cos(time * .12 + n.phase) * 8; });
+        planet.rotation.y = time * .06;
+        p2.children[0].rotation.y = time * .04;
+        moonGroup.rotation.y = time * .18;
+        p2.position.y = 80 + Math.sin(time * .05) * 8;
+        const camR = 110, camTh = time * .025 + mx * .2, camPh = .25 + my * .15;
+        camera.position.x = camR * Math.sin(camTh) * Math.cos(camPh);
+        camera.position.y = 25 + camR * Math.sin(camPh) + scrollY * .002;
+        camera.position.z = camR * Math.cos(camTh) * Math.cos(camPh);
+        camera.lookAt(0, -10, -20);
+        for (let i = comets.length - 1; i >= 0; i--) {
+          const c = comets[i]; c.grp.position.addScaledVector(c.dir, c.speed); c.life -= .0015;
+          c.grp.children.forEach(ch => { if (ch.material) ch.material.opacity = c.life; });
+          if (c.life <= 0 || c.grp.position.x > 700 || c.grp.position.y < -300) {
+            scene.remove(c.grp); comets.splice(i, 1); setTimeout(spawnComet, 1000 + Math.random() * 4000);
+          }
+        }
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      /* Typed text */
+      const words = ['Data Scientist', 'AI/ML Engineer', 'Data Analyst', 'Computer Vision Expert', 'GenAI Developer'];
+      let wi = 0, ci = 0, del = false;
+      const el = document.getElementById('typed-el');
+      function typeStep() {
+        const w = words[wi];
+        if (del) { el.textContent = w.slice(0, --ci); if (ci === 0) { del = false; wi = (wi + 1) % words.length; } setTimeout(typeStep, 50); }
+        else { el.textContent = w.slice(0, ++ci); if (ci === w.length) { del = true; setTimeout(typeStep, 1800); } else setTimeout(typeStep, 95); }
+      }
+      setTimeout(typeStep, 600);
+
+      /* Scroll reveal */
+      const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .06 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+      /* Fallback: show all reveals after 3s */
+      setTimeout(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')), 3000);
+
+      /* Active nav */
+      window.addEventListener('scroll', () => {
+        let cur = '';
+        document.querySelectorAll('section[id]').forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id; });
+        document.querySelectorAll('.nav-links a').forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + cur && !a.classList.contains('nav-cta'));
+        });
+      }, { passive: true });
+    })();
+  </script>
+
+  <!-- ═══ SPLASH CURSOR ═══ -->
+  <script>
+    (function () {
+      var canvas = document.getElementById('fluid-canvas');
+      if (!canvas) return;
+
+      var isActive = true;
+      var animationFrameId = null;
+
+      function pointerPrototype() {
+        this.id = -1;
+        this.texcoordX = 0;
+        this.texcoordY = 0;
+        this.prevTexcoordX = 0;
+        this.prevTexcoordY = 0;
+        this.deltaX = 0;
+        this.deltaY = 0;
+        this.down = false;
+        this.moved = false;
+        this.color = [0, 0, 0];
+      }
+
+      var config = {
+        SIM_RESOLUTION: 128,
+        DYE_RESOLUTION: 1440,
+        CAPTURE_RESOLUTION: 512,
+        DENSITY_DISSIPATION: 3.5,
+        VELOCITY_DISSIPATION: 2,
+        PRESSURE: 0.1,
+        PRESSURE_ITERATIONS: 20,
+        CURL: 3,
+        SPLAT_RADIUS: 0.2,
+        SPLAT_FORCE: 6000,
+        SHADING: true,
+        COLOR_UPDATE_SPEED: 10,
+        PAUSED: false,
+        BACK_COLOR: { r: 0, g: 0, b: 0 },
+        TRANSPARENT: true
+      };
+
+      var pointers = [new pointerPrototype()];
+
+      var params = { alpha: true, depth: false, stencil: false, antialias: false, preserveDrawingBuffer: false };
+      var gl = canvas.getContext('webgl2', params);
+      var isWebGL2 = !!gl;
+      if (!isWebGL2) gl = canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params);
+
+      var halfFloat, supportLinearFiltering;
+      if (isWebGL2) {
+        gl.getExtension('EXT_color_buffer_float');
+        supportLinearFiltering = gl.getExtension('OES_texture_float_linear');
+      } else {
+        halfFloat = gl.getExtension('OES_texture_half_float');
+        supportLinearFiltering = gl.getExtension('OES_texture_half_float_linear');
+      }
+      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+      var halfFloatTexType = isWebGL2 ? gl.HALF_FLOAT : (halfFloat && halfFloat.HALF_FLOAT_OES);
+      var formatRGBA, formatRG, formatR;
+
+      if (isWebGL2) {
+        formatRGBA = getSupportedFormat(gl.RGBA16F, gl.RGBA, halfFloatTexType);
+        formatRG = getSupportedFormat(gl.RG16F, gl.RG, halfFloatTexType);
+        formatR = getSupportedFormat(gl.R16F, gl.RED, halfFloatTexType);
+      } else {
+        formatRGBA = getSupportedFormat(gl.RGBA, gl.RGBA, halfFloatTexType);
+        formatRG = getSupportedFormat(gl.RGBA, gl.RGBA, halfFloatTexType);
+        formatR = getSupportedFormat(gl.RGBA, gl.RGBA, halfFloatTexType);
+      }
+
+      var ext = {
+        formatRGBA: formatRGBA, formatRG: formatRG, formatR: formatR,
+        halfFloatTexType: halfFloatTexType, supportLinearFiltering: supportLinearFiltering
+      };
+
+      if (!ext.supportLinearFiltering) { config.DYE_RESOLUTION = 256; config.SHADING = false; }
+
+      function getSupportedFormat(internalFormat, format, type) {
+        if (!supportRenderTextureFormat(internalFormat, format, type)) {
+          if (internalFormat === gl.R16F) return getSupportedFormat(gl.RG16F, gl.RG, type);
+          if (internalFormat === gl.RG16F) return getSupportedFormat(gl.RGBA16F, gl.RGBA, type);
+          return null;
+        }
+        return { internalFormat: internalFormat, format: format };
+      }
+
+      function supportRenderTextureFormat(internalFormat, format, type) {
+        var tex = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, 4, 4, 0, format, type, null);
+        var fbo = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+        return gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE;
+      }
+
+      function hashCode(s) {
+        if (s.length === 0) return 0;
+        var hash = 0;
+        for (var i = 0; i < s.length; i++) { hash = (hash << 5) - hash + s.charCodeAt(i); hash |= 0; }
+        return hash;
+      }
+
+      function compileShader(type, source, keywords) {
+        source = addKeywords(source, keywords);
+        var shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) console.trace(gl.getShaderInfoLog(shader));
+        return shader;
+      }
+
+      function addKeywords(source, keywords) {
+        if (!keywords) return source;
+        var s = '';
+        keywords.forEach(function (k) { s += '#define ' + k + '\n'; });
+        return s + source;
+      }
+
+      function createProgram(vs, fs) {
+        var p = gl.createProgram();
+        gl.attachShader(p, vs); gl.attachShader(p, fs); gl.linkProgram(p);
+        if (!gl.getProgramParameter(p, gl.LINK_STATUS)) console.trace(gl.getProgramInfoLog(p));
+        return p;
+      }
+
+      function getUniforms(program) {
+        var uniforms = [];
+        var n = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
+        for (var i = 0; i < n; i++) {
+          var name = gl.getActiveUniform(program, i).name;
+          uniforms[name] = gl.getUniformLocation(program, name);
+        }
+        return uniforms;
+      }
+
+      function Program(vs, fs) {
+        this.uniforms = {};
+        this.program = createProgram(vs, fs);
+        this.uniforms = getUniforms(this.program);
+      }
+      Program.prototype.bind = function () { gl.useProgram(this.program); };
+
+      function Material(vs, fsSrc) {
+        this.vertexShader = vs;
+        this.fragmentShaderSource = fsSrc;
+        this.programs = [];
+        this.activeProgram = null;
+        this.uniforms = [];
+      }
+      Material.prototype.setKeywords = function (keywords) {
+        var hash = 0;
+        for (var i = 0; i < keywords.length; i++) hash += hashCode(keywords[i]);
+        var program = this.programs[hash];
+        if (!program) {
+          program = createProgram(this.vertexShader, compileShader(gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords));
+          this.programs[hash] = program;
+        }
+        if (program === this.activeProgram) return;
+        this.uniforms = getUniforms(program);
+        this.activeProgram = program;
+      };
+      Material.prototype.bind = function () { gl.useProgram(this.activeProgram); };
+
+      var baseVertexShader = compileShader(gl.VERTEX_SHADER, `
+    precision highp float;
+    attribute vec2 aPosition;
+    varying vec2 vUv; varying vec2 vL; varying vec2 vR; varying vec2 vT; varying vec2 vB;
+    uniform vec2 texelSize;
+    void main () {
+      vUv = aPosition * 0.5 + 0.5;
+      vL = vUv - vec2(texelSize.x, 0.0); vR = vUv + vec2(texelSize.x, 0.0);
+      vT = vUv + vec2(0.0, texelSize.y); vB = vUv - vec2(0.0, texelSize.y);
+      gl_Position = vec4(aPosition, 0.0, 1.0);
+    }`);
+
+      var copyShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float; precision mediump sampler2D;
+    varying highp vec2 vUv; uniform sampler2D uTexture;
+    void main () { gl_FragColor = texture2D(uTexture, vUv); }`);
+
+      var clearShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float; precision mediump sampler2D;
+    varying highp vec2 vUv; uniform sampler2D uTexture; uniform float value;
+    void main () { gl_FragColor = value * texture2D(uTexture, vUv); }`);
+
+      var displayShaderSource = `
+    precision highp float; precision highp sampler2D;
+    varying vec2 vUv; varying vec2 vL; varying vec2 vR; varying vec2 vT; varying vec2 vB;
+    uniform sampler2D uTexture; uniform sampler2D uDithering;
+    uniform vec2 ditherScale; uniform vec2 texelSize;
+    vec3 linearToGamma (vec3 color) {
+      color = max(color, vec3(0));
+      return max(1.055 * pow(color, vec3(0.416666667)) - 0.055, vec3(0));
+    }
+    void main () {
+      vec3 c = texture2D(uTexture, vUv).rgb;
+      #ifdef SHADING
+        vec3 lc = texture2D(uTexture, vL).rgb; vec3 rc = texture2D(uTexture, vR).rgb;
+        vec3 tc = texture2D(uTexture, vT).rgb; vec3 bc = texture2D(uTexture, vB).rgb;
+        float dx = length(rc) - length(lc); float dy = length(tc) - length(bc);
+        vec3 n = normalize(vec3(dx, dy, length(texelSize))); vec3 l = vec3(0.0, 0.0, 1.0);
+        float diffuse = clamp(dot(n, l) + 0.7, 0.7, 1.0); c *= diffuse;
+      #endif
+      float a = max(c.r, max(c.g, c.b));
+      gl_FragColor = vec4(c, a);
+    }`;
+
+      var splatShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision highp float; precision highp sampler2D;
+    varying vec2 vUv; uniform sampler2D uTarget; uniform float aspectRatio;
+    uniform vec3 color; uniform vec2 point; uniform float radius;
+    void main () {
+      vec2 p = vUv - point.xy; p.x *= aspectRatio;
+      vec3 splat = exp(-dot(p, p) / radius) * color;
+      vec3 base = texture2D(uTarget, vUv).xyz;
+      gl_FragColor = vec4(base + splat, 1.0);
+    }`);
+
+      var advectionShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision highp float; precision highp sampler2D;
+    varying vec2 vUv; uniform sampler2D uVelocity; uniform sampler2D uSource;
+    uniform vec2 texelSize; uniform vec2 dyeTexelSize; uniform float dt; uniform float dissipation;
+    vec4 bilerp (sampler2D sam, vec2 uv, vec2 tsize) {
+      vec2 st = uv / tsize - 0.5; vec2 iuv = floor(st); vec2 fuv = fract(st);
+      vec4 a = texture2D(sam, (iuv + vec2(0.5, 0.5)) * tsize);
+      vec4 b = texture2D(sam, (iuv + vec2(1.5, 0.5)) * tsize);
+      vec4 c = texture2D(sam, (iuv + vec2(0.5, 1.5)) * tsize);
+      vec4 d = texture2D(sam, (iuv + vec2(1.5, 1.5)) * tsize);
+      return mix(mix(a, b, fuv.x), mix(c, d, fuv.x), fuv.y);
+    }
+    void main () {
+      #ifdef MANUAL_FILTERING
+        vec2 coord = vUv - dt * bilerp(uVelocity, vUv, texelSize).xy * texelSize;
+        vec4 result = bilerp(uSource, coord, dyeTexelSize);
+      #else
+        vec2 coord = vUv - dt * texture2D(uVelocity, vUv).xy * texelSize;
+        vec4 result = texture2D(uSource, coord);
+      #endif
+      float decay = 1.0 + dissipation * dt;
+      gl_FragColor = result / decay;
+    }`, ext.supportLinearFiltering ? null : ['MANUAL_FILTERING']);
+
+      var divergenceShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float; precision mediump sampler2D;
+    varying highp vec2 vUv; varying highp vec2 vL; varying highp vec2 vR;
+    varying highp vec2 vT; varying highp vec2 vB; uniform sampler2D uVelocity;
+    void main () {
+      float L = texture2D(uVelocity, vL).x; float R = texture2D(uVelocity, vR).x;
+      float T = texture2D(uVelocity, vT).y; float B = texture2D(uVelocity, vB).y;
+      vec2 C = texture2D(uVelocity, vUv).xy;
+      if (vL.x < 0.0) { L = -C.x; } if (vR.x > 1.0) { R = -C.x; }
+      if (vT.y > 1.0) { T = -C.y; } if (vB.y < 0.0) { B = -C.y; }
+      float div = 0.5 * (R - L + T - B);
+      gl_FragColor = vec4(div, 0.0, 0.0, 1.0);
+    }`);
+
+      var curlShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float; precision mediump sampler2D;
+    varying highp vec2 vUv; varying highp vec2 vL; varying highp vec2 vR;
+    varying highp vec2 vT; varying highp vec2 vB; uniform sampler2D uVelocity;
+    void main () {
+      float L = texture2D(uVelocity, vL).y; float R = texture2D(uVelocity, vR).y;
+      float T = texture2D(uVelocity, vT).x; float B = texture2D(uVelocity, vB).x;
+      float vorticity = R - L - T + B;
+      gl_FragColor = vec4(0.5 * vorticity, 0.0, 0.0, 1.0);
+    }`);
+
+      var vorticityShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision highp float; precision highp sampler2D;
+    varying vec2 vUv; varying vec2 vL; varying vec2 vR; varying vec2 vT; varying vec2 vB;
+    uniform sampler2D uVelocity; uniform sampler2D uCurl; uniform float curl; uniform float dt;
+    void main () {
+      float L = texture2D(uCurl, vL).x; float R = texture2D(uCurl, vR).x;
+      float T = texture2D(uCurl, vT).x; float B = texture2D(uCurl, vB).x;
+      float C = texture2D(uCurl, vUv).x;
+      vec2 force = 0.5 * vec2(abs(T) - abs(B), abs(R) - abs(L));
+      force /= length(force) + 0.0001; force *= curl * C; force.y *= -1.0;
+      vec2 velocity = texture2D(uVelocity, vUv).xy + force * dt;
+      velocity = min(max(velocity, -1000.0), 1000.0);
+      gl_FragColor = vec4(velocity, 0.0, 1.0);
+    }`);
+
+      var pressureShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float; precision mediump sampler2D;
+    varying highp vec2 vUv; varying highp vec2 vL; varying highp vec2 vR;
+    varying highp vec2 vT; varying highp vec2 vB;
+    uniform sampler2D uPressure; uniform sampler2D uDivergence;
+    void main () {
+      float L = texture2D(uPressure, vL).x; float R = texture2D(uPressure, vR).x;
+      float T = texture2D(uPressure, vT).x; float B = texture2D(uPressure, vB).x;
+      float C = texture2D(uPressure, vUv).x;
+      float divergence = texture2D(uDivergence, vUv).x;
+      float pressure = (L + R + B + T - divergence) * 0.25;
+      gl_FragColor = vec4(pressure, 0.0, 0.0, 1.0);
+    }`);
+
+      var gradientSubtractShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float; precision mediump sampler2D;
+    varying highp vec2 vUv; varying highp vec2 vL; varying highp vec2 vR;
+    varying highp vec2 vT; varying highp vec2 vB;
+    uniform sampler2D uPressure; uniform sampler2D uVelocity;
+    void main () {
+      float L = texture2D(uPressure, vL).x; float R = texture2D(uPressure, vR).x;
+      float T = texture2D(uPressure, vT).x; float B = texture2D(uPressure, vB).x;
+      vec2 velocity = texture2D(uVelocity, vUv).xy;
+      velocity.xy -= vec2(R - L, T - B);
+      gl_FragColor = vec4(velocity, 0.0, 1.0);
+    }`);
+
+      var blit = (function () {
+        gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
+        gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(0);
+        return function (target, clear) {
+          if (target == null) {
+            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+          } else {
+            gl.viewport(0, 0, target.width, target.height);
+            gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
+          }
+          if (clear) { gl.clearColor(0.0, 0.0, 0.0, 1.0); gl.clear(gl.COLOR_BUFFER_BIT); }
+          gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+        };
+      })();
+
+      var dye, velocity, divergence, curl, pressure;
+
+      var copyProgram = new Program(baseVertexShader, copyShader);
+      var clearProgram = new Program(baseVertexShader, clearShader);
+      var splatProgram = new Program(baseVertexShader, splatShader);
+      var advectionProgram = new Program(baseVertexShader, advectionShader);
+      var divergenceProgram = new Program(baseVertexShader, divergenceShader);
+      var curlProgram = new Program(baseVertexShader, curlShader);
+      var vorticityProgram = new Program(baseVertexShader, vorticityShader);
+      var pressureProgram = new Program(baseVertexShader, pressureShader);
+      var gradienSubtractProgram = new Program(baseVertexShader, gradientSubtractShader);
+      var displayMaterial = new Material(baseVertexShader, displayShaderSource);
+
+      function createFBO(w, h, internalFormat, format, type, param) {
+        gl.activeTexture(gl.TEXTURE0);
+        var texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, param);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, param);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, null);
+        var fbo = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+        gl.viewport(0, 0, w, h); gl.clear(gl.COLOR_BUFFER_BIT);
+        return {
+          texture: texture, fbo: fbo, width: w, height: h,
+          texelSizeX: 1.0 / w, texelSizeY: 1.0 / h,
+          attach: function (id) { gl.activeTexture(gl.TEXTURE0 + id); gl.bindTexture(gl.TEXTURE_2D, texture); return id; }
+        };
+      }
+
+      function createDoubleFBO(w, h, internalFormat, format, type, param) {
+        var fbo1 = createFBO(w, h, internalFormat, format, type, param);
+        var fbo2 = createFBO(w, h, internalFormat, format, type, param);
+        return {
+          width: w, height: h,
+          texelSizeX: fbo1.texelSizeX, texelSizeY: fbo1.texelSizeY,
+          get read() { return fbo1; }, set read(v) { fbo1 = v; },
+          get write() { return fbo2; }, set write(v) { fbo2 = v; },
+          swap: function () { var t = fbo1; fbo1 = fbo2; fbo2 = t; }
+        };
+      }
+
+      function resizeFBO(target, w, h, internalFormat, format, type, param) {
+        var newFBO = createFBO(w, h, internalFormat, format, type, param);
+        copyProgram.bind();
+        gl.uniform1i(copyProgram.uniforms.uTexture, target.attach(0));
+        blit(newFBO);
+        return newFBO;
+      }
+
+      function resizeDoubleFBO(target, w, h, internalFormat, format, type, param) {
+        if (target.width === w && target.height === h) return target;
+        target.read = resizeFBO(target.read, w, h, internalFormat, format, type, param);
+        target.write = createFBO(w, h, internalFormat, format, type, param);
+        target.width = w; target.height = h;
+        target.texelSizeX = 1.0 / w; target.texelSizeY = 1.0 / h;
+        return target;
+      }
+
+      function initFramebuffers() {
+        var simRes = getResolution(config.SIM_RESOLUTION);
+        var dyeRes = getResolution(config.DYE_RESOLUTION);
+        var texType = ext.halfFloatTexType;
+        var rgba = ext.formatRGBA, rg = ext.formatRG, r = ext.formatR;
+        var filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
+        gl.disable(gl.BLEND);
+        if (!dye) dye = createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+        else dye = resizeDoubleFBO(dye, dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+        if (!velocity) velocity = createDoubleFBO(simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
+        else velocity = resizeDoubleFBO(velocity, simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
+        divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+        curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+        pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+      }
+
+      function updateKeywords() {
+        var displayKeywords = [];
+        if (config.SHADING) displayKeywords.push('SHADING');
+        displayMaterial.setKeywords(displayKeywords);
+      }
+
+      updateKeywords();
+      initFramebuffers();
+
+      var lastUpdateTime = Date.now();
+      var colorUpdateTimer = 0.0;
+
+      function updateFrame() {
+        if (!isActive) return;
+        var dt = calcDeltaTime();
+        if (resizeCanvas()) initFramebuffers();
+        updateColors(dt);
+        applyInputs();
+        step(dt);
+        render(null);
+        animationFrameId = requestAnimationFrame(updateFrame);
+      }
+
+      function calcDeltaTime() {
+        var now = Date.now();
+        var dt = (now - lastUpdateTime) / 1000;
+        dt = Math.min(dt, 0.016666);
+        lastUpdateTime = now;
+        return dt;
+      }
+
+      function resizeCanvas() {
+        var width = scaleByPixelRatio(canvas.clientWidth);
+        var height = scaleByPixelRatio(canvas.clientHeight);
+        if (canvas.width !== width || canvas.height !== height) {
+          canvas.width = width; canvas.height = height; return true;
+        }
+        return false;
+      }
+
+      function updateColors(dt) {
+        colorUpdateTimer += dt * config.COLOR_UPDATE_SPEED;
+        if (colorUpdateTimer >= 1) {
+          colorUpdateTimer = wrap(colorUpdateTimer, 0, 1);
+          pointers.forEach(function (p) { p.color = generateColor(); });
+        }
+      }
+
+      function applyInputs() {
+        pointers.forEach(function (p) { if (p.moved) { p.moved = false; splatPointer(p); } });
+      }
+
+      function step(dt) {
+        gl.disable(gl.BLEND);
+
+        curlProgram.bind();
+        gl.uniform2f(curlProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(curlProgram.uniforms.uVelocity, velocity.read.attach(0));
+        blit(curl);
+
+        vorticityProgram.bind();
+        gl.uniform2f(vorticityProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(vorticityProgram.uniforms.uVelocity, velocity.read.attach(0));
+        gl.uniform1i(vorticityProgram.uniforms.uCurl, curl.attach(1));
+        gl.uniform1f(vorticityProgram.uniforms.curl, config.CURL);
+        gl.uniform1f(vorticityProgram.uniforms.dt, dt);
+        blit(velocity.write); velocity.swap();
+
+        divergenceProgram.bind();
+        gl.uniform2f(divergenceProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(divergenceProgram.uniforms.uVelocity, velocity.read.attach(0));
+        blit(divergence);
+
+        clearProgram.bind();
+        gl.uniform1i(clearProgram.uniforms.uTexture, pressure.read.attach(0));
+        gl.uniform1f(clearProgram.uniforms.value, config.PRESSURE);
+        blit(pressure.write); pressure.swap();
+
+        pressureProgram.bind();
+        gl.uniform2f(pressureProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(pressureProgram.uniforms.uDivergence, divergence.attach(0));
+        for (var i = 0; i < config.PRESSURE_ITERATIONS; i++) {
+          gl.uniform1i(pressureProgram.uniforms.uPressure, pressure.read.attach(1));
+          blit(pressure.write); pressure.swap();
+        }
+
+        gradienSubtractProgram.bind();
+        gl.uniform2f(gradienSubtractProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(gradienSubtractProgram.uniforms.uPressure, pressure.read.attach(0));
+        gl.uniform1i(gradienSubtractProgram.uniforms.uVelocity, velocity.read.attach(1));
+        blit(velocity.write); velocity.swap();
+
+        advectionProgram.bind();
+        gl.uniform2f(advectionProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        if (!ext.supportLinearFiltering)
+          gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, velocity.texelSizeX, velocity.texelSizeY);
+        var velocityId = velocity.read.attach(0);
+        gl.uniform1i(advectionProgram.uniforms.uVelocity, velocityId);
+        gl.uniform1i(advectionProgram.uniforms.uSource, velocityId);
+        gl.uniform1f(advectionProgram.uniforms.dt, dt);
+        gl.uniform1f(advectionProgram.uniforms.dissipation, config.VELOCITY_DISSIPATION);
+        blit(velocity.write); velocity.swap();
+
+        if (!ext.supportLinearFiltering)
+          gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, dye.texelSizeX, dye.texelSizeY);
+        gl.uniform1i(advectionProgram.uniforms.uVelocity, velocity.read.attach(0));
+        gl.uniform1i(advectionProgram.uniforms.uSource, dye.read.attach(1));
+        gl.uniform1f(advectionProgram.uniforms.dissipation, config.DENSITY_DISSIPATION);
+        blit(dye.write); dye.swap();
+      }
+
+      function render(target) {
+        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+        gl.enable(gl.BLEND);
+        drawDisplay(target);
+      }
+
+      function drawDisplay(target) {
+        var width = target == null ? gl.drawingBufferWidth : target.width;
+        var height = target == null ? gl.drawingBufferHeight : target.height;
+        displayMaterial.bind();
+        if (config.SHADING) gl.uniform2f(displayMaterial.uniforms.texelSize, 1.0 / width, 1.0 / height);
+        gl.uniform1i(displayMaterial.uniforms.uTexture, dye.read.attach(0));
+        blit(target);
+      }
+
+      function splatPointer(pointer) {
+        var dx = pointer.deltaX * config.SPLAT_FORCE;
+        var dy = pointer.deltaY * config.SPLAT_FORCE;
+        splat(pointer.texcoordX, pointer.texcoordY, dx, dy, pointer.color);
+      }
+
+      function clickSplat(pointer) {
+        var color = generateColor();
+        color.r *= 10.0; color.g *= 10.0; color.b *= 10.0;
+        var dx = 10 * (Math.random() - 0.5);
+        var dy = 30 * (Math.random() - 0.5);
+        splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
+      }
+
+      function splat(x, y, dx, dy, color) {
+        splatProgram.bind();
+        gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
+        gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas.width / canvas.height);
+        gl.uniform2f(splatProgram.uniforms.point, x, y);
+        gl.uniform3f(splatProgram.uniforms.color, dx, dy, 0.0);
+        gl.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100.0));
+        blit(velocity.write); velocity.swap();
+        gl.uniform1i(splatProgram.uniforms.uTarget, dye.read.attach(0));
+        gl.uniform3f(splatProgram.uniforms.color, color.r, color.g, color.b);
+        blit(dye.write); dye.swap();
+      }
+
+      function correctRadius(radius) {
+        var aspectRatio = canvas.width / canvas.height;
+        if (aspectRatio > 1) radius *= aspectRatio;
+        return radius;
+      }
+
+      function generateColor() {
+        var c = HSVtoRGB(Math.random(), 1.0, 1.0);
+        c.r *= 0.15; c.g *= 0.15; c.b *= 0.15;
+        return c;
+      }
+
+      function HSVtoRGB(h, s, v) {
+        var r, g, b, i = Math.floor(h * 6), f = h * 6 - i,
+          p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s);
+        switch (i % 6) {
+          case 0: r = v; g = t; b = p; break; case 1: r = q; g = v; b = p; break;
+          case 2: r = p; g = v; b = t; break; case 3: r = p; g = q; b = v; break;
+          case 4: r = t; g = p; b = v; break; case 5: r = v; g = p; b = q; break;
+        }
+        return { r: r, g: g, b: b };
+      }
+
+      function wrap(value, min, max) {
+        var range = max - min;
+        if (range === 0) return min;
+        return ((value - min) % range) + min;
+      }
+
+      function getResolution(resolution) {
+        var aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
+        if (aspectRatio < 1) aspectRatio = 1.0 / aspectRatio;
+        var min = Math.round(resolution);
+        var max = Math.round(resolution * aspectRatio);
+        if (gl.drawingBufferWidth > gl.drawingBufferHeight) return { width: max, height: min };
+        else return { width: min, height: max };
+      }
+
+      function scaleByPixelRatio(input) {
+        return Math.floor(input * (window.devicePixelRatio || 1));
+      }
+
+      function updatePointerDownData(pointer, id, posX, posY) {
+        pointer.id = id; pointer.down = true; pointer.moved = false;
+        pointer.texcoordX = posX / canvas.width;
+        pointer.texcoordY = 1.0 - posY / canvas.height;
+        pointer.prevTexcoordX = pointer.texcoordX;
+        pointer.prevTexcoordY = pointer.texcoordY;
+        pointer.deltaX = 0; pointer.deltaY = 0;
+        pointer.color = generateColor();
+      }
+
+      function updatePointerMoveData(pointer, posX, posY, color) {
+        pointer.prevTexcoordX = pointer.texcoordX;
+        pointer.prevTexcoordY = pointer.texcoordY;
+        pointer.texcoordX = posX / canvas.width;
+        pointer.texcoordY = 1.0 - posY / canvas.height;
+        pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
+        pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
+        pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
+        pointer.color = color;
+      }
+
+      function updatePointerUpData(pointer) { pointer.down = false; }
+
+      function correctDeltaX(delta) {
+        var aspectRatio = canvas.width / canvas.height;
+        if (aspectRatio < 1) delta *= aspectRatio;
+        return delta;
+      }
+
+      function correctDeltaY(delta) {
+        var aspectRatio = canvas.width / canvas.height;
+        if (aspectRatio > 1) delta /= aspectRatio;
+        return delta;
+      }
+
+      var firstMouseMoveHandled = false;
+
+      function handleMouseDown(e) {
+        var pointer = pointers[0];
+        var posX = scaleByPixelRatio(e.clientX);
+        var posY = scaleByPixelRatio(e.clientY);
+        updatePointerDownData(pointer, -1, posX, posY);
+        clickSplat(pointer);
+      }
+
+      function handleMouseMove(e) {
+        var pointer = pointers[0];
+        var posX = scaleByPixelRatio(e.clientX);
+        var posY = scaleByPixelRatio(e.clientY);
+        if (!firstMouseMoveHandled) {
+          updatePointerMoveData(pointer, posX, posY, generateColor());
+          firstMouseMoveHandled = true;
+        } else {
+          updatePointerMoveData(pointer, posX, posY, pointer.color);
+        }
+      }
+
+      function handleTouchStart(e) {
+        var touches = e.targetTouches;
+        var pointer = pointers[0];
+        for (var i = 0; i < touches.length; i++) {
+          updatePointerDownData(pointer, touches[i].identifier,
+            scaleByPixelRatio(touches[i].clientX), scaleByPixelRatio(touches[i].clientY));
+        }
+      }
+
+      function handleTouchMove(e) {
+        var touches = e.targetTouches;
+        var pointer = pointers[0];
+        for (var i = 0; i < touches.length; i++) {
+          updatePointerMoveData(pointer, scaleByPixelRatio(touches[i].clientX),
+            scaleByPixelRatio(touches[i].clientY), pointer.color);
+        }
+      }
+
+      function handleTouchEnd(e) {
+        var touches = e.changedTouches;
+        for (var i = 0; i < touches.length; i++) updatePointerUpData(pointers[0]);
+      }
+
+      window.addEventListener('mousedown', handleMouseDown);
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('touchstart', handleTouchStart);
+      window.addEventListener('touchmove', handleTouchMove, false);
+      window.addEventListener('touchend', handleTouchEnd);
+
+      updateFrame();
+    })();
+  </script>
+</body>
+
+</html>
