@@ -806,9 +806,13 @@
 
     /* ── PROJECTS ── */
     .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.1rem
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.1rem;
+    }
+    .projects-grid > .electric-border {
+      width: calc(33.333% - 0.733rem);
     }
 
     .proj-cover {
@@ -1324,14 +1328,14 @@
     }
 
     @media(max-width:1024px) {
-      .projects-grid {
-        grid-template-columns: repeat(2, 1fr)
+      .projects-grid > .electric-border {
+        width: calc(50% - 0.55rem);
       }
     }
 
     @media(max-width:640px) {
-      .projects-grid {
-        grid-template-columns: 1fr
+      .projects-grid > .electric-border {
+        width: 100%;
       }
     }
 
@@ -2284,13 +2288,16 @@
         <div class="eb-layers"><div class="eb-glow-1"></div><div class="eb-glow-2"></div><div class="eb-background-glow"></div></div>
         <div class="eb-content">
           <div class="proj-card">
-            <div class="proj-icon">🤖</div>
+            <div class="proj-cover"><img src="images/zecpath_cover.jpg" alt="Zecpath" class="proj-cover-img" /></div>
             <div class="proj-title">Zecpath — AI-Powered Hiring Platform</div>
             <div class="proj-tags">
               <span class="proj-tag">Python</span><span class="proj-tag">OpenAI API</span><span class="proj-tag">NLP</span><span class="proj-tag">FastAPI</span><span class="proj-tag">React</span><span class="proj-tag">WebRTC</span><span class="proj-tag">Twilio</span><span class="proj-tag">PostgreSQL</span><span class="proj-tag">AWS</span>
             </div>
             <div class="proj-desc">An end-to-end autonomous AI hiring platform built at Zecser Business LLP. Zecpath automates the full recruitment lifecycle &mdash; from AI-based ATS resume parsing and ranking, automated multilingual AI voice calls, smart interview scheduling, AI video interviews with behavioral analysis, live coding machine tests, salary negotiation AI, and automated offer letter generation. Built across 100 phases covering the complete hiring pipeline with zero human intervention.</div>
             <div class="proj-metric">Internship Project &mdash; Zecser Business LLP (April 2026 &ndash; Present)</div>
+            <div class="proj-links">
+              <a class="proj-link" href="https://github.com/Gayal-C-Ashok/zecpath-ai" target="_blank">&#9711; GitHub</a>
+            </div>
           </div>
         </div>
       </div>
